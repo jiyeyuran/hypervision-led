@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLocalizedPath, messages } from '../../lib/i18n';
+
+const language = 'zh';
+const t = messages[language];
+---
+
+<Layout
+  language={language}
+  title="HyperVision LED | 工业级 LED 显示制造商"
+  description="面向零售、活动、交通和智慧城市项目的工业级 LED 显示系统。"
+  path="/zh"
+>
+  <section class="container-page py-18">
+    <p class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--brand)]">B2B LED Display</p>
+    <h1 class="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">{t.home.heroTitle}</h1>
+    <p class="mt-5 max-w-3xl text-lg text-[var(--text-subtle)]">{t.home.heroDescription}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={getLocalizedPath('/inquiry', language)} class="btn-primary">{t.home.ctaPrimary}</a>
+      <a href={getLocalizedPath('/products', language)} class="rounded-lg border border-[var(--border)] px-5 py-3 font-semibold">{t.home.ctaSecondary}</a>
+    </div>
+  </section>
+</Layout>

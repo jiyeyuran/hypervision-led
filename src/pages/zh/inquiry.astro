@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { messages } from '../../lib/i18n';
+
+const language = 'zh';
+const t = messages[language];
+const renderedAt = Date.now();
+---
+
+<Layout
+  language={language}
+  title="提交询盘 | HyperVision LED"
+  description="提交项目需求，获取 HyperVision 报价。"
+  path="/zh/inquiry"
+>
+  <section class="container-page py-14">
+    <h1 class="text-4xl font-bold">{t.inquiry.title}</h1>
+    <p class="mt-3 max-w-2xl text-[var(--text-subtle)]">{t.inquiry.description}</p>
+    <form id="inquiry-form-zh" class="mt-8 grid gap-4 rounded-xl border border-[var(--border)] p-6" enctype="multipart/form-data">
+      <input type="hidden" name="language" value="zh" />
+      <input type="hidden" name="renderedAt" value={String(renderedAt)} />
+      <label class="grid gap-1">
+        <span class="text-sm">公司名称</span>
+        <input name="company" class="rounded-lg border border-[var(--border)] px-3 py-2" required />
+      </label>
+      <label class="grid gap-1">
+        <span class="text-sm">联系人</span>
+        <input name="name" class="rounded-lg border border-[var(--border)] px-3 py-2" required />
+      </label>
+      <label class="grid gap-1">
+        <span class="text-sm">邮箱</span>
+        <input name="email" type="email" class="rounded-lg border border-[var(--border)] px-3 py-2" required />
+      </label>
+      <label class="grid gap-1">
+        <span class="text-sm">国家</span>
+        <input name="country" class="rounded-lg border border-[var(--border)] px-3 py-2" required />
+      </label>
+      <label class="grid gap-1">
+        <span class="text-sm">需求说明</span>
+        <textarea name="message" rows={6} class="rounded-lg border border-[var(--border)] px-3 py-2" required />
+      </label>
+      <label class="hidden">
+        <span>Website</span>
+        <input name="website" autocomplete="off" tabindex="-1" />
+      </label>
+      <button class="btn-primary w-fit" type="submit">提交询盘</button>
+      <p id="inquiry-result-zh" class="text-sm text-[var(--text-subtle)]"></p>
+    </form>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('inquiry-form-zh');
+  const result = document.getElementById('inquiry-result-zh');
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const target = event.currentTarget;
+    if (!(target instanceof HTMLFormElement)) return;
+    const body = new FormData(target);
+    const response = await fetch('/api/inquiries', { method: 'POST', body });
+    const payload = await response.json();
+    if (!response.ok) {
+      if (result) result.textContent = payload.message ?? '提交失败';
+      return;
+    }
+    if (result) result.textContent = '询盘已提交成功，我们将尽快联系您。';
+    target.reset();
+  });
+</script>

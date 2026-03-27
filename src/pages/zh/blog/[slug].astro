@@ -1,0 +1,29 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getBlogBySlug } from '../../../lib/server/content';
+import { pickLocalized } from '../../../lib/page-data';
+
+const language = 'zh' as const;
+const slug = Astro.params.slug ?? '';
+const env = Astro.locals.runtime.env;
+const post = await getBlogBySlug(env, slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+---
+
+<Layout
+  language={language}
+  title={`${pickLocalized(post, 'title', language)} | HyperVision 博客`}
+  description={pickLocalized(post, 'excerpt', language)}
+  path={`/zh/blog/${slug}`}
+>
+  <section class="container-page py-14">
+    <a href="/zh/blog" class="text-sm text-[var(--text-subtle)]">← 返回博客</a>
+    <h1 class="mt-3 text-4xl font-bold">{pickLocalized(post, 'title', language)}</h1>
+    <article class="prose prose-neutral mt-6 max-w-none">
+      <div set:html={pickLocalized(post, 'content', language)} />
+    </article>
+  </section>
+</Layout>

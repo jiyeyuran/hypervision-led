@@ -1,0 +1,34 @@
+---
+import { buildOrganizationJsonLd, getAlternateUrls, getCanonicalUrl } from '../lib/seo';
+import type { Language } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  language: Language;
+  image?: string;
+}
+
+const { title, description, path, language, image = '/og-default.jpg' } = Astro.props;
+const canonical = getCanonicalUrl(path);
+const alternates = getAlternateUrls(path);
+const orgJsonLd = buildOrganizationJsonLd(language);
+---
+
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="en" href={alternates.en} />
+<link rel="alternate" hreflang="zh" href={alternates.zh} />
+<link rel="alternate" hreflang="x-default" href={alternates.en} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+<meta property="og:locale" content={language === 'zh' ? 'zh_CN' : 'en_US'} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />

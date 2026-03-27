@@ -1,0 +1,35 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getProducts } from '../../../lib/server/content';
+import { pickLocalized } from '../../../lib/page-data';
+
+const language = 'zh' as const;
+const env = Astro.locals.runtime.env;
+const products = await getProducts(env);
+---
+
+<Layout
+  language={language}
+  title="产品中心 | HyperVision"
+  description="查看 HyperVision 在室内、户外与租赁场景下的 LED 产品。"
+  path="/zh/products"
+>
+  <section class="container-page py-14">
+    <h1 class="text-4xl font-bold">产品中心</h1>
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      {
+        products.map((item) => (
+          <article class="rounded-xl border border-[var(--border)] p-5">
+            <h2 class="text-lg font-semibold">{pickLocalized(item, 'title', language)}</h2>
+            <p class="mt-2 line-clamp-3 text-sm text-[var(--text-subtle)]">
+              {pickLocalized(item, 'excerpt', language)}
+            </p>
+            <a href={`/zh/products/${item.slug}`} class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]">
+              查看详情 →
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

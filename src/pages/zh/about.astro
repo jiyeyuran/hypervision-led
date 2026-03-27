@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { messages } from '../../lib/i18n';
+
+const language = 'zh';
+const t = messages[language];
+---
+
+<Layout
+  language={language}
+  title="关于 HyperVision | LED 显示工厂"
+  description="了解 HyperVision 的制造能力与工程团队。"
+  path="/zh/about"
+>
+  <section class="container-page py-14">
+    <h1 class="text-4xl font-bold">{t.about.title}</h1>
+    <p class="mt-5 max-w-3xl text-[var(--text-subtle)]">{t.about.description}</p>
+  </section>
+</Layout>

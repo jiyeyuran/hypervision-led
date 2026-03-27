@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { messages } from '../lib/i18n';
+
+const language = 'en';
+const t = messages[language];
+---
+
+<Layout
+  language={language}
+  title="About HyperVision | LED Display Factory"
+  description="Learn about HyperVision LED manufacturing capability and team."
+  path="/about"
+>
+  <section class="container-page py-14">
+    <h1 class="text-4xl font-bold">{t.about.title}</h1>
+    <p class="mt-5 max-w-3xl text-[var(--text-subtle)]">{t.about.description}</p>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <article class="rounded-xl border border-[var(--border)] p-6">
+        <h2 class="text-xl font-semibold">Factory & Capacity</h2>
+        <p class="mt-3 text-sm text-[var(--text-subtle)]">
+          8 automated lines, SMT process control, and monthly output over 12,000 sqm.
+        </p>
+      </article>
+      <article class="rounded-xl border border-[var(--border)] p-6">
+        <h2 class="text-xl font-semibold">Engineering Support</h2>
+        <p class="mt-3 text-sm text-[var(--text-subtle)]">
+          CAD drawing, thermal simulation, installation guide, and after-sales maintenance support.
+        </p>
+      </article>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,25 @@
+---
+import { getLocalizedPath, messages } from '../lib/i18n';
+import type { Language } from '../lib/i18n';
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const t = messages[language];
+---
+
+<header class="border-b border-[var(--border)] bg-white">
+  <div class="container-page flex items-center justify-between py-4">
+    <a href={getLocalizedPath('/', language)} class="text-xl font-semibold">{t.siteName}</a>
+    <nav class="flex gap-5 text-sm text-[var(--text-subtle)]">
+      <a href={getLocalizedPath('/', language)}>{t.nav.home}</a>
+      <a href={getLocalizedPath('/about', language)}>{t.nav.about}</a>
+      <a href={getLocalizedPath('/products', language)}>{t.nav.products}</a>
+      <a href={getLocalizedPath('/blog', language)}>{t.nav.blog}</a>
+      <a href={getLocalizedPath('/contact', language)}>{t.nav.contact}</a>
+      <a href={getLocalizedPath('/inquiry', language)}>{t.nav.inquiry}</a>
+    </nav>
+  </div>
+</header>

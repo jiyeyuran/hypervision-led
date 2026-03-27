@@ -1,0 +1,16 @@
+name = "hypervision-led-queue-consumer"
+main = "workers/queue-consumer.ts"
+compatibility_date = "2026-03-27"
+compatibility_flags = ["nodejs_compat"]
+
+[[queues.consumers]]
+queue = "inquiry-events"
+max_batch_size = 10
+max_batch_timeout = 10
+max_retries = 5
+dead_letter_queue = "inquiry-events-dlq"
+
+[vars]
+CRM_WEBHOOK_URL = ""
+CRM_WEBHOOK_TOKEN = ""
+MAIL_WEBHOOK_URL = ""

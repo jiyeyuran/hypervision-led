@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getBlogs } from '../../lib/server/content';
+import { pickLocalized } from '../../lib/page-data';
+
+const language = 'en' as const;
+const env = Astro.locals.runtime.env;
+const posts = await getBlogs(env);
+---
+
+<Layout
+  language={language}
+  title="Blog | HyperVision LED"
+  description="Insights on LED display technology, projects and maintenance."
+  path="/blog"
+>
+  <section class="container-page py-14">
+    <h1 class="text-4xl font-bold">Blog</h1>
+    <div class="mt-8 space-y-5">
+      {
+        posts.map((post) => (
+          <article class="rounded-xl border border-[var(--border)] p-6">
+            <p class="text-xs text-[var(--text-subtle)]">{post.published_at.slice(0, 10)}</p>
+            <h2 class="mt-2 text-2xl font-semibold">{pickLocalized(post, 'title', language)}</h2>
+            <p class="mt-2 text-sm text-[var(--text-subtle)]">{pickLocalized(post, 'excerpt', language)}</p>
+            <a href={`/blog/${post.slug}`} class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]">
+              Read more →
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
