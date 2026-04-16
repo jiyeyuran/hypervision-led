@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { messages } from '../../lib/i18n';
+import { visualAssets } from '../../lib/visuals';
 
 const language = 'zh';
 const t = messages[language];
@@ -15,5 +16,23 @@ const t = messages[language];
   <section class="container-page py-14">
     <h1 class="text-4xl font-bold">{t.about.title}</h1>
     <p class="mt-5 max-w-3xl text-[var(--text-subtle)]">{t.about.description}</p>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <article class="image-card h-72">
+        <img src={visualAssets.factory} alt="工厂生产图片" loading="lazy" />
+      </article>
+      <article class="image-card h-72">
+        <img src={visualAssets.showroom} alt="展厅与检测图片" loading="lazy" />
+      </article>
+    </div>
+    <h2 class="mt-10 text-3xl font-bold">资质与项目实拍</h2>
+    <div class="mt-5 grid gap-5 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(0, 3).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`企业图片 ${index + 1}`} loading="lazy" class="h-52" />
+          </article>
+        ))
+      }
+    </div>
   </section>
 </Layout>

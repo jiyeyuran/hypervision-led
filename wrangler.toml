@@ -13,15 +13,15 @@ enabled = true
 [[d1_databases]]
 binding = "DB"
 database_name = "hypervision-led-db"
-database_id = "REPLACE_WITH_D1_ID"
+database_id = "1d87021d-351f-4701-b80e-bc91305402b2"
 
 [[kv_namespaces]]
 binding = "CONFIG_KV"
-id = "REPLACE_WITH_CONFIG_KV_ID"
+id = "0d99f76205814d69b129dcbf97200ac7"
 
 [[kv_namespaces]]
 binding = "RATE_LIMIT_KV"
-id = "REPLACE_WITH_RATE_LIMIT_KV_ID"
+id = "8b3a14f7bacb44b7b09b2e1787b040c4"
 
 [[r2_buckets]]
 binding = "ASSETS_R2"

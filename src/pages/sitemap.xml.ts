@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getBlogs, getProducts } from '../lib/server/content';
+import { getWorkerEnv } from '../lib/server/worker-env';
 
 const site = 'https://www.hypervision-led.com';
 
@@ -7,8 +8,8 @@ function url(loc: string, lastmod?: string) {
   return `<url><loc>${loc}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
 }
 
-export const GET: APIRoute = async ({ locals }) => {
-  const env = locals.runtime.env;
+export const GET: APIRoute = async () => {
+  const env = getWorkerEnv();
   const products = await getProducts(env);
   const posts = await getBlogs(env);
 

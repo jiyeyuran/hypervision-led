@@ -2,10 +2,12 @@
 import Layout from '../../../layouts/Layout.astro';
 import { getProductBySlug } from '../../../lib/server/content';
 import { pickLocalized } from '../../../lib/page-data';
+import { getWorkerEnv } from '../../../lib/server/worker-env';
+import { resolveImage, visualAssets } from '../../../lib/visuals';
 
 const language = 'zh' as const;
 const slug = Astro.params.slug ?? '';
-const env = Astro.locals.runtime.env;
+const env = getWorkerEnv();
 const product = await getProductBySlug(env, slug);
 
 if (!product) {
@@ -23,8 +25,21 @@ if (!product) {
     <a href="/zh/products" class="text-sm text-[var(--text-subtle)]">← 返回产品列表</a>
     <h1 class="mt-3 text-4xl font-bold">{pickLocalized(product, 'title', language)}</h1>
     <p class="mt-4 max-w-3xl text-[var(--text-subtle)]">{pickLocalized(product, 'excerpt', language)}</p>
+    <div class="image-card mt-7 h-80">
+      <img src={resolveImage(product.cover_image, 0)} alt={pickLocalized(product, 'title', language)} loading="lazy" />
+    </div>
     <article class="prose prose-neutral mt-8 max-w-none">
       <div set:html={pickLocalized(product, 'content', language)} />
     </article>
+    <h2 class="mt-10 text-2xl font-bold">应用场景图</h2>
+    <div class="mt-5 grid gap-5 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(0, 3).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`场景图片 ${index + 1}`} class="h-48" loading="lazy" />
+          </article>
+        ))
+      }
+    </div>
   </section>
 </Layout>

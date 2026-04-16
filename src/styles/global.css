@@ -45,3 +45,22 @@ a {
 .btn-primary:hover {
   background: var(--brand-dark);
 }
+
+.image-card {
+  overflow: hidden;
+  border-radius: 0.85rem;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.image-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.image-card:hover img {
+  transform: scale(1.03);
+}

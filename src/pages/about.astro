@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { messages } from '../lib/i18n';
+import { visualAssets } from '../lib/visuals';
 
 const language = 'en';
 const t = messages[language];
@@ -16,6 +17,14 @@ const t = messages[language];
     <h1 class="text-4xl font-bold">{t.about.title}</h1>
     <p class="mt-5 max-w-3xl text-[var(--text-subtle)]">{t.about.description}</p>
     <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <article class="image-card h-72">
+        <img src={visualAssets.factory} alt="LED factory manufacturing line" loading="lazy" />
+      </article>
+      <article class="image-card h-72">
+        <img src={visualAssets.showroom} alt="LED showroom and quality check" loading="lazy" />
+      </article>
+    </div>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
       <article class="rounded-xl border border-[var(--border)] p-6">
         <h2 class="text-xl font-semibold">Factory & Capacity</h2>
         <p class="mt-3 text-sm text-[var(--text-subtle)]">
@@ -28,6 +37,17 @@ const t = messages[language];
           CAD drawing, thermal simulation, installation guide, and after-sales maintenance support.
         </p>
       </article>
+    </div>
+
+    <h2 class="mt-10 text-3xl font-bold">Certificates & Project Photos</h2>
+    <div class="mt-5 grid gap-5 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(0, 3).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`Company proof image ${index + 1}`} loading="lazy" class="h-52" />
+          </article>
+        ))
+      }
     </div>
   </section>
 </Layout>

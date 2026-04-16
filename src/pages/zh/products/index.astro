@@ -2,9 +2,11 @@
 import Layout from '../../../layouts/Layout.astro';
 import { getProducts } from '../../../lib/server/content';
 import { pickLocalized } from '../../../lib/page-data';
+import { getWorkerEnv } from '../../../lib/server/worker-env';
+import { resolveImage, visualAssets } from '../../../lib/visuals';
 
 const language = 'zh' as const;
-const env = Astro.locals.runtime.env;
+const env = getWorkerEnv();
 const products = await getProducts(env);
 ---
 
@@ -16,11 +18,17 @@ const products = await getProducts(env);
 >
   <section class="container-page py-14">
     <h1 class="text-4xl font-bold">产品中心</h1>
+    <div class="image-card mt-6 h-64">
+      <img src={visualAssets.project} alt="项目部署预览图" loading="lazy" />
+    </div>
     <div class="mt-8 grid gap-6 md:grid-cols-3">
       {
-        products.map((item) => (
+        products.map((item, index) => (
           <article class="rounded-xl border border-[var(--border)] p-5">
-            <h2 class="text-lg font-semibold">{pickLocalized(item, 'title', language)}</h2>
+            <div class="image-card h-44">
+              <img src={resolveImage(item.cover_image, index)} alt={pickLocalized(item, 'title', language)} loading="lazy" />
+            </div>
+            <h2 class="mt-4 text-lg font-semibold">{pickLocalized(item, 'title', language)}</h2>
             <p class="mt-2 line-clamp-3 text-sm text-[var(--text-subtle)]">
               {pickLocalized(item, 'excerpt', language)}
             </p>

@@ -1,24 +1,26 @@
 # HyperVision LED 部署说明（Cloudflare）
 
+在项目根目录先执行 `npm install`。若终端提示 `command not found: wrangler`，请用 **`npx wrangler`**（或全局安装：`npm install -g wrangler`）。
+
 ## 1) 创建 Cloudflare 资源
 
 ```bash
 # 登录
-wrangler login
+npx wrangler login
 
 # D1
-wrangler d1 create hypervision-led-db
+npx wrangler d1 create hypervision-led-db
 
 # KV
-wrangler kv namespace create CONFIG_KV
-wrangler kv namespace create RATE_LIMIT_KV
+npx wrangler kv namespace create CONFIG_KV
+npx wrangler kv namespace create RATE_LIMIT_KV
 
 # R2
-wrangler r2 bucket create hypervision-led-assets
+npx wrangler r2 bucket create hypervision-led-assets
 
 # Queue
-wrangler queues create inquiry-events
-wrangler queues create inquiry-events-dlq
+npx wrangler queues create inquiry-events
+npx wrangler queues create inquiry-events-dlq
 ```
 
 将返回的 ID 填入 `wrangler.toml`。
@@ -26,8 +28,8 @@ wrangler queues create inquiry-events-dlq
 ## 2) 初始化数据库
 
 ```bash
-wrangler d1 execute hypervision-led-db --file=./db/schema.sql
-wrangler d1 execute hypervision-led-db --file=./db/seed.sql
+npx wrangler d1 execute hypervision-led-db --file=./db/schema.sql
+npx wrangler d1 execute hypervision-led-db --file=./db/seed.sql
 ```
 
 ## 3) 配置环境变量
@@ -67,7 +69,7 @@ npm run cf:deploy
 ## 7) 部署 Queue 消费者
 
 ```bash
-wrangler deploy --config wrangler.queue.toml
+npx wrangler deploy --config wrangler.queue.toml
 ```
 
 ## 8) Cloudflare Access 保护后台

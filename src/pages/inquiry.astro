@@ -55,23 +55,11 @@ const renderedAt = Date.now();
 </Layout>
 
 <script>
-  const form = document.getElementById('inquiry-form');
-  const result = document.getElementById('inquiry-result');
-  form?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const target = event.currentTarget;
-    if (!(target instanceof HTMLFormElement)) return;
-    const body = new FormData(target);
-    const response = await fetch('/api/inquiries', {
-      method: 'POST',
-      body,
-    });
-    const payload = await response.json();
-    if (!response.ok) {
-      if (result) result.textContent = payload.message ?? 'Submit failed.';
-      return;
-    }
-    if (result) result.textContent = 'Inquiry submitted successfully. Our team will contact you soon.';
-    target.reset();
-  });
+  import { initInquiryForm } from '../client/inquiry-form';
+  initInquiryForm(
+    'inquiry-form',
+    'inquiry-result',
+    'Inquiry submitted successfully. Our team will contact you soon.',
+    'Submit failed.',
+  );
 </script>

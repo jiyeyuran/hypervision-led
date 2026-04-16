@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getLocalizedPath, messages } from '../lib/i18n';
+import { visualAssets } from '../lib/visuals';
 
 const language = 'en';
 const t = messages[language];
@@ -12,28 +13,70 @@ const t = messages[language];
   description="Industrial LED display systems for retail, event, transport and smart city projects."
   path="/"
 >
-  <section class="container-page py-18">
-    <p class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--brand)]">B2B LED Display</p>
-    <h1 class="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">{t.home.heroTitle}</h1>
-    <p class="mt-5 max-w-3xl text-lg text-[var(--text-subtle)]">{t.home.heroDescription}</p>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a href={getLocalizedPath('/inquiry', language)} class="btn-primary">{t.home.ctaPrimary}</a>
-      <a href={getLocalizedPath('/products', language)} class="rounded-lg border border-[var(--border)] px-5 py-3 font-semibold">{t.home.ctaSecondary}</a>
+  <section class="container-page py-12">
+    <div class="image-card relative h-[460px]">
+      <img src={visualAssets.hero} alt="Large LED display installation" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/25" />
+      <div class="absolute inset-0 flex items-center">
+        <div class="px-8 text-white md:px-12">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-blue-200">B2B LED Display</p>
+          <h1 class="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">{t.home.heroTitle}</h1>
+          <p class="mt-5 max-w-3xl text-lg text-white/85">{t.home.heroDescription}</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={getLocalizedPath('/inquiry', language)} class="btn-primary">{t.home.ctaPrimary}</a>
+            <a href={getLocalizedPath('/products', language)} class="rounded-lg border border-white/50 bg-white/10 px-5 py-3 font-semibold text-white">
+              {t.home.ctaSecondary}
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="container-page grid gap-6 pb-18 md:grid-cols-3">
-    <article class="rounded-xl border border-[var(--border)] p-6">
-      <h2 class="text-lg font-semibold">OEM & ODM</h2>
-      <p class="mt-3 text-sm text-[var(--text-subtle)]">Flexible structure, cabinet design, and control system options.</p>
-    </article>
-    <article class="rounded-xl border border-[var(--border)] p-6">
-      <h2 class="text-lg font-semibold">Quality Control</h2>
-      <p class="mt-3 text-sm text-[var(--text-subtle)]">100% aging test, waterproof validation, and strict production QA process.</p>
-    </article>
-    <article class="rounded-xl border border-[var(--border)] p-6">
-      <h2 class="text-lg font-semibold">Global Delivery</h2>
-      <p class="mt-3 text-sm text-[var(--text-subtle)]">Door-to-door logistics, remote commissioning, and local partner support.</p>
-    </article>
+  <section class="container-page pb-12">
+    <h2 class="text-3xl font-bold">Featured Application Scenes</h2>
+    <p class="mt-2 text-[var(--text-subtle)]">Image-focused references for retail, exhibition, control room, and outdoor campaigns.</p>
+    <div class="mt-6 grid gap-5 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(0, 3).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`LED display application scene ${index + 1}`} loading="lazy" class="h-56" />
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pb-12">
+    <div class="grid gap-6 md:grid-cols-2">
+      <article class="image-card h-72">
+        <img src={visualAssets.factory} alt="Factory production line" loading="lazy" />
+      </article>
+      <article class="rounded-xl border border-[var(--border)] p-6">
+        <h3 class="text-2xl font-semibold">Factory & Process Visibility</h3>
+        <p class="mt-3 text-[var(--text-subtle)]">
+          Inspired by high-conversion B2B LED sites, we now emphasize visual proof: workshop scenes, QC process photos,
+          and deployment snapshots to improve trust for overseas buyers.
+        </p>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-[var(--text-subtle)]">
+          <li>Incoming material QC images</li>
+          <li>Module aging test records</li>
+          <li>Cabinet assembly and packaging photos</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="container-page pb-18">
+    <h2 class="text-3xl font-bold">Global Project Gallery</h2>
+    <div class="mt-6 grid gap-5 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(3).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`Global project image ${index + 1}`} loading="lazy" class="h-52" />
+          </article>
+        ))
+      }
+    </div>
   </section>
 </Layout>

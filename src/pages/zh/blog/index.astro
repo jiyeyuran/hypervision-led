@@ -2,9 +2,10 @@
 import Layout from '../../../layouts/Layout.astro';
 import { getBlogs } from '../../../lib/server/content';
 import { pickLocalized } from '../../../lib/page-data';
+import { getWorkerEnv } from '../../../lib/server/worker-env';
 
 const language = 'zh' as const;
-const env = Astro.locals.runtime.env;
+const env = getWorkerEnv();
 const posts = await getBlogs(env);
 ---
 
