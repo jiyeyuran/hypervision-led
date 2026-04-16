@@ -1,11 +1,9 @@
-import type { D1PreparedStatement } from '@cloudflare/workers-types';
 import type { AppEnv } from './types';
 
 export async function queryAll<T>(env: AppEnv, sql: string, params: unknown[] = []): Promise<T[]> {
-  let statement: D1PreparedStatement = env.DB.prepare(sql);
-  for (const item of params) {
-    statement = statement.bind(item);
-  }
+  const statement = params.length > 0
+    ? env.DB.prepare(sql).bind(...params)
+    : env.DB.prepare(sql);
   const result = await statement.all<T>();
   return result.results ?? [];
 }
@@ -20,9 +18,8 @@ export async function queryFirst<T>(
 }
 
 export async function execute(env: AppEnv, sql: string, params: unknown[] = []) {
-  let statement: D1PreparedStatement = env.DB.prepare(sql);
-  for (const item of params) {
-    statement = statement.bind(item);
-  }
+  const statement = params.length > 0
+    ? env.DB.prepare(sql).bind(...params)
+    : env.DB.prepare(sql);
   return statement.run();
 }

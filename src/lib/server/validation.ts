@@ -8,7 +8,7 @@ export const inquirySchema = z.object({
   phone: z.string().max(40).optional().or(z.literal('')),
   country: z.string().min(2).max(60),
   productInterest: z.string().max(120).optional().or(z.literal('')),
-  message: z.string().min(10).max(4000),
+  message: z.string().min(2).max(4000),
   budget: z.string().max(80).optional().or(z.literal('')),
   quantity: z.coerce.number().int().min(1).max(1_000_000).optional(),
   sourcePage: z.string().max(300).optional().or(z.literal('')),

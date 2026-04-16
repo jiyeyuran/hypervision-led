@@ -1,46 +1,63 @@
-# Astro Starter Kit: Basics
+# HyperVision LED
 
-```sh
-npm create astro@latest -- --template basics
-```
+Industrial LED display solutions website, built with Astro 6 and deployed on Cloudflare Workers.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Tech Stack
 
-## 🚀 Project Structure
+- **Framework:** Astro 6 (SSR mode)
+- **Styling:** Tailwind CSS 4
+- **Runtime:** Cloudflare Workers (`@astrojs/cloudflare` adapter)
+- **Database:** Cloudflare D1 (SQLite)
+- **Storage:** Cloudflare R2 (file attachments)
+- **Cache:** Cloudflare KV
+- **Queue:** Cloudflare Queues (inquiry notifications)
+- **Auth:** Cloudflare Access + JWT verification
+- **Validation:** Zod 4
 
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── src/
+│   ├── pages/            # Astro pages & API routes
+│   │   ├── api/          # REST API endpoints
+│   │   ├── zh/           # Chinese-language pages
+│   │   └── admin/        # Admin dashboard
+│   ├── components/       # Reusable Astro components
+│   ├── layouts/          # Page layouts
+│   ├── client/           # Client-side TypeScript
+│   ├── lib/
+│   │   ├── server/       # Server-side utilities (DB, auth, cache, validation)
+│   │   ├── i18n.ts       # Internationalization (en/zh)
+│   │   ├── seo.ts        # SEO helpers
+│   │   └── visuals.ts    # Image assets
+│   ├── styles/           # Global CSS (Tailwind entry)
+│   └── middleware.ts     # Security headers middleware
+├── workers/              # Cloudflare Queue consumer (separate worker)
+├── db/                   # D1 schema and seed SQL
+├── wrangler.toml         # Site worker config
+└── wrangler.queue.toml   # Queue consumer config
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Development
 
-## 🧞 Commands
+```bash
+npm install
+npm run dev          # Start dev server at localhost:4321
+```
 
-All commands are run from the root of the project, from a terminal:
+Create a `.dev.vars` file from `.dev.vars.example` for local environment variables.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Commands
 
-## 👀 Want to learn more?
+| Command | Action |
+|:---|:---|
+| `npm run dev` | Start local dev server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run check` | Run Astro type checks |
+| `npm run cf:types` | Generate Wrangler binding types |
+| `npm run cf:deploy` | Deploy to Cloudflare |
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for Cloudflare setup instructions.

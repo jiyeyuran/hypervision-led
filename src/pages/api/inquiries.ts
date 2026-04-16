@@ -1,14 +1,17 @@
-import { getClientIp } from '../../src/lib/server/env';
-import { jsonError, jsonOk } from '../../src/lib/server/response';
-import { createInquiry, addAttachment, newInquiryId } from '../../src/lib/server/inquiries';
+import type { APIRoute } from 'astro';
+import { getWorkerEnv } from '../../lib/server/worker-env';
+import { getClientIp } from '../../lib/server/env';
+import { jsonError, jsonOk } from '../../lib/server/response';
+import { createInquiry, addAttachment, newInquiryId } from '../../lib/server/inquiries';
 import {
   rateLimit,
   validateFormRenderTime,
   validateHoneypot,
   validateUploadFile,
   verifyTurnstileToken,
-} from '../../src/lib/server/security';
-import { inquirySchema } from '../../src/lib/server/validation';
+} from '../../lib/server/security';
+import { inquirySchema } from '../../lib/server/validation';
+import { apiHandler, corsPreflightResponse } from '../../lib/server/cors';
 
 async function sha256(value: string): Promise<string> {
   const encoded = new TextEncoder().encode(value);
@@ -17,30 +20,31 @@ async function sha256(value: string): Promise<string> {
   return bytes.map((item) => item.toString(16).padStart(2, '0')).join('');
 }
 
-export const onRequestPost = async (context: any) => {
-  const env = context.env;
-  const ip = getClientIp(context.request);
+export const POST: APIRoute = apiHandler(async ({ request }) => {
+  const env = getWorkerEnv();
+  const ip = getClientIp(request);
   const rate = await rateLimit(env, 'inquiry-submit', ip, 8, 60);
   if (!rate.allowed) {
     return jsonError('Too many requests. Please retry later.', 429);
   }
 
-  const form = await context.request.formData();
+  const form = await request.formData();
+  const str = (key: string) => form.get(key) ?? undefined;
   const payload = inquirySchema.safeParse({
-    language: form.get('language'),
-    company: form.get('company'),
-    name: form.get('name'),
-    email: form.get('email'),
-    phone: form.get('phone'),
-    country: form.get('country'),
-    productInterest: form.get('productInterest'),
-    message: form.get('message'),
-    budget: form.get('budget'),
-    quantity: form.get('quantity'),
-    sourcePage: form.get('sourcePage') ?? new URL(context.request.url).pathname,
-    website: form.get('website'),
-    renderedAt: form.get('renderedAt'),
-    turnstileToken: form.get('turnstileToken'),
+    language: str('language'),
+    company: str('company'),
+    name: str('name'),
+    email: str('email'),
+    phone: str('phone'),
+    country: str('country'),
+    productInterest: str('productInterest'),
+    message: str('message'),
+    budget: str('budget'),
+    quantity: str('quantity'),
+    sourcePage: str('sourcePage') ?? new URL(request.url).pathname,
+    website: str('website'),
+    renderedAt: str('renderedAt'),
+    turnstileToken: str('turnstileToken'),
   });
   if (!payload.success) {
     return jsonError('Invalid inquiry payload.', 422, payload.error.flatten());
@@ -87,9 +91,7 @@ export const onRequestPost = async (context: any) => {
     }
     const objectKey = `inquiries/${inquiryId}/${Date.now()}-${attachment.name}`;
     await env.ASSETS_R2.put(objectKey, await attachment.arrayBuffer(), {
-      httpMetadata: {
-        contentType: attachment.type,
-      },
+      httpMetadata: { contentType: attachment.type },
     });
     await addAttachment(
       env,
@@ -110,4 +112,6 @@ export const onRequestPost = async (context: any) => {
   });
 
   return jsonOk({ success: true, inquiryId }, 201);
-};
+});
+
+export const OPTIONS: APIRoute = async () => corsPreflightResponse();

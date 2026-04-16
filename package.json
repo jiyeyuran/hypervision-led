@@ -10,7 +10,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-types": "wrangler types",
     "check": "astro check",
     "cf:deploy": "wrangler deploy",
     "cf:types": "wrangler types"

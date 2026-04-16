@@ -1,4 +1,4 @@
-import { decodeJwt } from 'jose';
+import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { queryFirst } from './db';
 import type { AppEnv } from './types';
 
@@ -6,6 +6,9 @@ export interface AdminIdentity {
   email: string;
   role: 'admin' | 'editor' | 'viewer';
 }
+
+const CF_ACCESS_CERTS_URL = 'https://hypervision-led.cloudflareaccess.com/cdn-cgi/access/certs';
+const jwks = createRemoteJWKSet(new URL(CF_ACCESS_CERTS_URL));
 
 function parseAllowlist(raw: string): Set<string> {
   return new Set(
@@ -17,23 +20,25 @@ function parseAllowlist(raw: string): Set<string> {
 }
 
 export async function requireAdmin(
-  request: any,
+  request: Request,
   env: AppEnv,
   roles: Array<AdminIdentity['role']> = ['admin', 'editor', 'viewer'],
 ): Promise<AdminIdentity | null> {
-  const jwt = request.headers.get('cf-access-jwt-assertion');
-  if (!jwt) {
+  const token = request.headers.get('cf-access-jwt-assertion');
+  if (!token) {
     return null;
   }
 
-  const payload = decodeJwt(jwt);
-  const aud = payload.aud;
-  const audMatched = Array.isArray(aud) ? aud.includes(env.CF_ACCESS_AUD) : aud === env.CF_ACCESS_AUD;
-  if (!audMatched) {
+  let email: string;
+  try {
+    const { payload } = await jwtVerify(token, jwks, {
+      audience: env.CF_ACCESS_AUD || undefined,
+    });
+    email = String(payload.email ?? '').toLowerCase();
+  } catch {
     return null;
   }
 
-  const email = String(payload.email ?? '').toLowerCase();
   if (!email) {
     return null;
   }
