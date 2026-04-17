@@ -1,5 +1,9 @@
 import EasyMDE from 'easymde';
 import 'easymde/dist/easymde.min.css';
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
+import '@fortawesome/fontawesome-free/css/solid.min.css';
+import '@fortawesome/fontawesome-free/css/regular.min.css';
+import '@fortawesome/fontawesome-free/css/brands.min.css';
 
 export interface BlogFormData {
   slug: string;
@@ -49,7 +53,7 @@ function createEditor(textarea: HTMLTextAreaElement, placeholder: string): EasyM
     element: textarea,
     placeholder,
     spellChecker: false,
-    autoDownloadFontAwesome: true,
+    autoDownloadFontAwesome: false,
     status: ['lines', 'words'],
     minHeight: '320px',
     uploadImage: true,
