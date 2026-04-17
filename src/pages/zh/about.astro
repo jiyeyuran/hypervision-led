@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { messages } from '../../lib/i18n';
+import { getLocalizedPath, messages } from '../../lib/i18n';
 import { visualAssets } from '../../lib/visuals';
 
 const language = 'zh';
@@ -13,26 +13,73 @@ const t = messages[language];
   description="了解 HyperVision 的制造能力与工程团队。"
   path="/zh/about"
 >
-  <section class="container-page py-14">
-    <h1 class="text-4xl font-bold">{t.about.title}</h1>
-    <p class="mt-5 max-w-3xl text-[var(--text-subtle)]">{t.about.description}</p>
-    <div class="mt-8 grid gap-6 md:grid-cols-2">
-      <article class="image-card h-72">
+  <section class="container-page py-10 md:py-14">
+    <h1 class="hero-title">{t.about.title}</h1>
+    <p class="mt-4 max-w-3xl text-sm text-[var(--text-subtle)] md:text-base">{t.about.description}</p>
+    <p class="mt-3 max-w-3xl text-sm text-[var(--text-subtle)] md:text-base">{t.about.story}</p>
+
+    <div class="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+      {
+        t.home.stats.map((s) => (
+          <div class="stat-card">
+            <div class="stat-value">{s.value}</div>
+            <div class="stat-label">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
+      <article class="image-card h-60 md:h-72">
         <img src={visualAssets.factory} alt="工厂生产图片" loading="lazy" />
       </article>
-      <article class="image-card h-72">
+      <article class="image-card h-60 md:h-72">
         <img src={visualAssets.showroom} alt="展厅与检测图片" loading="lazy" />
       </article>
     </div>
-    <h2 class="mt-10 text-3xl font-bold">资质与项目实拍</h2>
-    <div class="mt-5 grid gap-5 md:grid-cols-3">
+
+    <div class="mt-8 grid gap-5 md:grid-cols-2 md:gap-6">
+      <article class="feature-card">
+        <h2 class="text-lg font-semibold md:text-xl">{t.about.capabilityTitle}</h2>
+        <p class="mt-3 text-sm text-[var(--text-subtle)]">{t.about.capabilityDesc}</p>
+      </article>
+      <article class="feature-card">
+        <h2 class="text-lg font-semibold md:text-xl">{t.about.engineeringTitle}</h2>
+        <p class="mt-3 text-sm text-[var(--text-subtle)]">{t.about.engineeringDesc}</p>
+      </article>
+    </div>
+
+    <h2 class="section-title mt-12">{t.home.whyTitle}</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
-        visualAssets.scenes.slice(0, 3).map((image, index) => (
-          <article class="image-card">
-            <img src={image} alt={`企业图片 ${index + 1}`} loading="lazy" class="h-52" />
+        t.home.why.map((item) => (
+          <article class="feature-card">
+            <h3 class="text-lg font-semibold">{item.title}</h3>
+            <p class="mt-2 text-sm text-[var(--text-subtle)]">{item.desc}</p>
           </article>
         ))
       }
+    </div>
+
+    <h2 class="section-title mt-12">{t.about.certTitle}</h2>
+    <div class="mt-5 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(0, 6).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`企业图片 ${index + 1}`} loading="lazy" class="h-44 md:h-52" />
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 cta-banner flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h3 class="text-xl font-bold md:text-2xl">{t.home.ctaBannerTitle}</h3>
+        <p class="mt-2 text-sm text-white/85 md:text-base">{t.home.ctaBannerDesc}</p>
+      </div>
+      <a href={getLocalizedPath('/inquiry', language)} class="rounded-lg bg-white px-5 py-3 font-semibold text-[var(--brand-dark)] hover:bg-white/90">
+        {t.home.ctaPrimary}
+      </a>
     </div>
   </section>
 </Layout>

@@ -13,51 +13,238 @@ const t = messages[language];
   description="面向零售、活动、交通和智慧城市项目的工业级 LED 显示系统。"
   path="/zh"
 >
-  <section class="container-page py-12">
-    <div class="image-card relative h-[460px]">
+  <section class="container-page pt-6 md:pt-12">
+    <div class="hero-shell">
       <img src={visualAssets.hero} alt="LED 显示项目大图" loading="eager" />
-      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/25" />
-      <div class="absolute inset-0 flex items-center">
-        <div class="px-8 text-white md:px-12">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-blue-200">B2B LED Display</p>
-          <h1 class="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">{t.home.heroTitle}</h1>
-          <p class="mt-5 max-w-3xl text-lg text-white/85">{t.home.heroDescription}</p>
-          <div class="mt-8 flex flex-wrap gap-3">
+      <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20"></div>
+      <div class="relative flex h-full min-h-[360px] items-center px-5 py-10 md:min-h-[460px] md:px-12 md:py-14">
+        <div class="text-white">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue-200 md:text-sm">B2B LED Display</p>
+          <h1 class="hero-title max-w-3xl">{t.home.heroTitle}</h1>
+          <p class="mt-4 max-w-2xl text-base text-white/85 md:mt-5 md:text-lg">{t.home.heroDescription}</p>
+          <div class="mt-6 flex flex-wrap gap-3 md:mt-8">
             <a href={getLocalizedPath('/inquiry', language)} class="btn-primary">{t.home.ctaPrimary}</a>
-            <a href={getLocalizedPath('/products', language)} class="rounded-lg border border-white/50 bg-white/10 px-5 py-3 font-semibold text-white">
+            <a href={getLocalizedPath('/products', language)} class="rounded-lg border border-white/50 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur hover:bg-white/20">
               {t.home.ctaSecondary}
             </a>
           </div>
+          <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur md:text-sm">
+            <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
+            {t.home.trustBadge}
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container-page pb-12">
-    <h2 class="text-3xl font-bold">场景图集</h2>
-    <p class="mt-2 text-[var(--text-subtle)]">强化图片展示：商业、展览、控制室、户外广告等应用场景。</p>
-    <div class="mt-6 grid gap-5 md:grid-cols-3">
+  <section class="container-page pt-10 md:pt-14">
+    <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+      {
+        t.home.stats.map((s) => (
+          <div class="stat-card">
+            <div class="stat-value">{s.value}</div>
+            <div class="stat-label">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      <div>
+        <h2 class="section-title">{t.home.scenesTitle}</h2>
+        <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.scenesDesc}</p>
+      </div>
+      <a href={getLocalizedPath('/products', language)} class="text-sm font-semibold text-[var(--brand)] hover:underline">
+        {t.home.ctaSecondary} →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
       {
         visualAssets.scenes.slice(0, 3).map((image, index) => (
           <article class="image-card">
-            <img src={image} alt={`LED 场景图 ${index + 1}`} loading="lazy" class="h-56" />
+            <img src={image} alt={`LED 场景图 ${index + 1}`} loading="lazy" class="h-48 md:h-56" />
           </article>
         ))
       }
     </div>
   </section>
 
-  <section class="container-page pb-18">
-    <div class="grid gap-6 md:grid-cols-2">
-      <article class="image-card h-72">
-        <img src={visualAssets.factory} alt="工厂生产线" loading="lazy" />
+  <section class="container-page pt-12 md:pt-16">
+    <h2 class="section-title">{t.home.solutionsTitle}</h2>
+    <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.solutionsDesc}</p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        t.home.solutions.map((item, index) => (
+          <article class="feature-card overflow-hidden p-0">
+            <div class="image-card rounded-none border-0 border-b border-[var(--border)]">
+              <img
+                src={visualAssets.solutions[index % visualAssets.solutions.length]}
+                alt={item.title}
+                loading="lazy"
+                class="h-40 md:h-44"
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="text-lg font-semibold">{item.title}</h3>
+              <p class="mt-2 text-sm text-[var(--text-subtle)]">{item.desc}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <div class="grid gap-6 md:grid-cols-2 md:gap-8">
+      <article class="image-card h-64 md:h-80">
+        <img src={visualAssets.factory} alt="HyperVision LED 工厂实拍" loading="lazy" />
       </article>
-      <article class="rounded-xl border border-[var(--border)] p-6">
-        <h3 class="text-2xl font-semibold">工厂可视化实力</h3>
-        <p class="mt-3 text-[var(--text-subtle)]">
-          参考头部外贸网站，我们增加了更高密度的实拍图：产线、老化测试、交付案例，提升海外客户信任度。
-        </p>
+      <article class="rounded-xl border border-[var(--border)] p-6 md:p-8">
+        <h3 class="text-xl font-semibold md:text-2xl">{t.home.factoryTitle}</h3>
+        <p class="mt-3 text-sm text-[var(--text-subtle)] md:text-base">{t.home.factoryDesc}</p>
+        <ul class="mt-4 space-y-2 text-sm text-[var(--text-subtle)]">
+          {
+            t.home.factoryPoints.map((p) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[var(--brand)]"></span>
+                <span>{p}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a href={getLocalizedPath('/about', language)} class="mt-5 inline-block text-sm font-semibold text-[var(--brand)] hover:underline">
+          {t.nav.about} →
+        </a>
       </article>
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <h2 class="section-title">{t.home.whyTitle}</h2>
+    <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.whyDesc}</p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        t.home.why.map((item) => (
+          <article class="feature-card">
+            <h3 class="text-lg font-semibold">{item.title}</h3>
+            <p class="mt-2 text-sm text-[var(--text-subtle)]">{item.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <h2 class="section-title">{t.home.processTitle}</h2>
+    <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.processDesc}</p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.home.process.map((item) => (
+          <article class="feature-card">
+            <span class="text-sm font-bold tracking-[0.18em] text-[var(--brand)]">STEP {item.step}</span>
+            <h3 class="mt-2 text-lg font-semibold">{item.title}</h3>
+            <p class="mt-2 text-sm text-[var(--text-subtle)]">{item.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <h2 class="section-title">{t.home.testimonialsTitle}</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      {
+        t.home.testimonials.map((tm) => (
+          <article class="feature-card">
+            <svg class="h-6 w-6 text-[var(--brand)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3H3v2h1a5 5 0 0 0 5-5V7zm12 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3h-1v2h1a5 5 0 0 0 5-5V7z"></path>
+            </svg>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text)]">{tm.quote}</p>
+            <div class="mt-4 text-xs text-[var(--text-subtle)]">
+              <p class="font-semibold text-[var(--text)]">{tm.author}</p>
+              <p>{tm.company}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      <div>
+        <h2 class="section-title">{t.home.newsTitle}</h2>
+        <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.newsDesc}</p>
+      </div>
+      <a href={getLocalizedPath('/blog', language)} class="text-sm font-semibold text-[var(--brand)] hover:underline">
+        {t.nav.blog} →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      {
+        t.home.news.map((n, idx) => (
+          <article class="feature-card overflow-hidden p-0">
+            <div class="image-card rounded-none border-0 border-b border-[var(--border)]">
+              <img src={visualAssets.news[idx % visualAssets.news.length]} alt={n.title} loading="lazy" class="h-44" />
+            </div>
+            <div class="p-5">
+              <p class="text-xs text-[var(--text-subtle)]">{n.date}</p>
+              <h3 class="mt-2 text-lg font-semibold leading-snug">{n.title}</h3>
+              <p class="mt-2 text-sm text-[var(--text-subtle)]">{n.excerpt}</p>
+              <a href={getLocalizedPath('/blog', language)} class="mt-3 inline-block text-sm font-semibold text-[var(--brand)] hover:underline">
+                阅读更多 →
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <h2 class="section-title">{t.home.galleryTitle}</h2>
+    <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.galleryDesc}</p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {
+        visualAssets.scenes.slice(3).map((image, index) => (
+          <article class="image-card">
+            <img src={image} alt={`全球项目图 ${index + 1}`} loading="lazy" class="h-44 md:h-52" />
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <h2 class="section-title">{t.home.faqTitle}</h2>
+    <div class="mt-6">
+      {
+        t.home.faq.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page pt-12 md:pt-16">
+    <div class="cta-banner flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h3 class="text-xl font-bold md:text-2xl">{t.home.ctaBannerTitle}</h3>
+        <p class="mt-2 text-sm text-white/85 md:text-base">{t.home.ctaBannerDesc}</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={getLocalizedPath('/inquiry', language)} class="rounded-lg bg-white px-5 py-3 font-semibold text-[var(--brand-dark)] hover:bg-white/90">
+          {t.home.ctaPrimary}
+        </a>
+        <a href={getLocalizedPath('/contact', language)} class="rounded-lg border border-white/60 bg-white/10 px-5 py-3 font-semibold text-white hover:bg-white/20">
+          {t.nav.contact}
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

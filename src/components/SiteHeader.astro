@@ -8,18 +8,88 @@ interface Props {
 
 const { language } = Astro.props;
 const t = messages[language];
+
+const navItems = [
+  { href: getLocalizedPath('/', language), label: t.nav.home },
+  { href: getLocalizedPath('/about', language), label: t.nav.about },
+  { href: getLocalizedPath('/products', language), label: t.nav.products },
+  { href: getLocalizedPath('/blog', language), label: t.nav.blog },
+  { href: getLocalizedPath('/contact', language), label: t.nav.contact },
+  { href: getLocalizedPath('/inquiry', language), label: t.nav.inquiry },
+];
+
+const otherLang: Language = language === 'en' ? 'zh' : 'en';
+const otherLangLabel = language === 'en' ? '中文' : 'EN';
+const otherLangHref = language === 'en' ? '/zh/' : '/';
 ---
 
-<header class="border-b border-[var(--border)] bg-white">
-  <div class="container-page flex items-center justify-between py-4">
-    <a href={getLocalizedPath('/', language)} class="text-xl font-semibold">{t.siteName}</a>
-    <nav class="flex gap-5 text-sm text-[var(--text-subtle)]">
-      <a href={getLocalizedPath('/', language)}>{t.nav.home}</a>
-      <a href={getLocalizedPath('/about', language)}>{t.nav.about}</a>
-      <a href={getLocalizedPath('/products', language)}>{t.nav.products}</a>
-      <a href={getLocalizedPath('/blog', language)}>{t.nav.blog}</a>
-      <a href={getLocalizedPath('/contact', language)}>{t.nav.contact}</a>
-      <a href={getLocalizedPath('/inquiry', language)}>{t.nav.inquiry}</a>
+<header class="sticky top-0 z-40 border-b border-[var(--border)] bg-white/95 backdrop-blur">
+  <div class="container-page flex items-center justify-between py-3 md:py-4">
+    <a href={getLocalizedPath('/', language)} class="flex items-center gap-2 text-lg font-semibold md:text-xl">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[var(--brand)] text-white">HV</span>
+      <span>{t.siteName}</span>
+    </a>
+
+    <nav class="hidden items-center gap-5 text-sm text-[var(--text-subtle)] md:flex">
+      {navItems.map((item) => (
+        <a href={item.href} class="hover:text-[var(--brand)]">{item.label}</a>
+      ))}
+      <a href={otherLangHref} class="rounded-md border border-[var(--border)] px-2 py-1 text-xs font-semibold hover:border-[var(--brand)] hover:text-[var(--brand)]">
+        {otherLangLabel}
+      </a>
+      <a href={getLocalizedPath('/inquiry', language)} class="btn-primary !px-4 !py-2 !text-sm">
+        {t.home.ctaPrimary}
+      </a>
+    </nav>
+
+    <button
+      id="mobile-menu-toggle"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] md:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg id="menu-open-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="7" x2="20" y2="7"></line>
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="17" x2="20" y2="17"></line>
+      </svg>
+      <svg id="menu-close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="6" y1="18" x2="18" y2="6"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-[var(--border)] bg-white md:hidden">
+    <nav class="container-page flex flex-col py-3 text-sm">
+      {navItems.map((item) => (
+        <a href={item.href} class="py-3 border-b border-[var(--border)] last:border-b-0">{item.label}</a>
+      ))}
+      <div class="mt-3 flex items-center gap-3">
+        <a href={otherLangHref} class="rounded-md border border-[var(--border)] px-3 py-2 text-xs font-semibold">
+          {otherLangLabel}
+        </a>
+        <a href={getLocalizedPath('/inquiry', language)} class="btn-primary !px-4 !py-2 !text-sm flex-1">
+          {t.home.ctaPrimary}
+        </a>
+      </div>
     </nav>
   </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-open-icon');
+  const closeIcon = document.getElementById('menu-close-icon');
+  if (toggle && menu && openIcon && closeIcon) {
+    toggle.addEventListener('click', () => {
+      const willOpen = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !willOpen);
+      openIcon.classList.toggle('hidden', willOpen);
+      closeIcon.classList.toggle('hidden', !willOpen);
+      toggle.setAttribute('aria-expanded', String(willOpen));
+    });
+  }
+</script>

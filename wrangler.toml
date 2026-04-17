@@ -32,8 +32,8 @@ binding = "INQUIRY_QUEUE"
 queue = "inquiry-events"
 
 [vars]
-CF_ACCESS_AUD = "REPLACE_WITH_ACCESS_AUD"
-ADMIN_ALLOWLIST = "admin@hypervision-led.com,editor@hypervision-led.com"
+CF_ACCESS_AUD = "0c360366b96da051d5feddd5aaabd0d29c41b5fdda14444bb13606682507139b"
+ADMIN_ALLOWLIST = "carmen@hypervision-led.com,info@hypervision-led.com,jiyeyuran@gmail.com"
 CRM_WEBHOOK_URL = ""
 CRM_WEBHOOK_TOKEN = ""
 MAIL_WEBHOOK_URL = ""
