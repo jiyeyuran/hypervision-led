@@ -24,6 +24,11 @@ export async function requireAdmin(
   env: AppEnv,
   roles: Array<AdminIdentity['role']> = ['admin', 'editor', 'viewer'],
 ): Promise<AdminIdentity | null> {
+  // 本地开发时跳过 Cloudflare Access 认证
+  if (import.meta.env.DEV) {
+    return { email: 'admin@hypervision-led.com', role: 'admin' };
+  }
+
   const token = request.headers.get('cf-access-jwt-assertion');
   if (!token) {
     return null;
