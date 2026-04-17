@@ -1,13 +1,14 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { queryFirst } from './db';
 import type { AppEnv } from './types';
+import { CF_ACCESS_TEAM_DOMAIN } from '../access-config';
 
 export interface AdminIdentity {
   email: string;
   role: 'admin' | 'editor' | 'viewer';
 }
 
-const CF_ACCESS_CERTS_URL = 'https://hypervision-led.cloudflareaccess.com/cdn-cgi/access/certs';
+const CF_ACCESS_CERTS_URL = `https://${CF_ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs`;
 const jwks = createRemoteJWKSet(new URL(CF_ACCESS_CERTS_URL));
 
 function parseAllowlist(raw: string): Set<string> {

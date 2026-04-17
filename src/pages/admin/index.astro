@@ -10,13 +10,13 @@ import Layout from '../../layouts/Layout.astro';
 >
   <section class="container-page py-10 md:py-14">
     <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-      <div>
+      <div class="flex-1">
         <h1 class="text-3xl font-bold">Admin Console</h1>
         <p class="mt-2 text-sm text-[var(--text-subtle)]">
-          Protected by Cloudflare Access. Quick links below.
+          Protected by Cloudflare Access. Only allowlisted emails can operate this console.
         </p>
       </div>
-      <div class="flex flex-wrap gap-3">
+      <div class="flex flex-wrap gap-3" data-admin-protected>
         <a
           href="/admin/blog"
           class="rounded-lg border border-[var(--border)] px-4 py-2 text-sm font-semibold hover:border-[var(--brand)] hover:text-[var(--brand)]"
@@ -26,44 +26,54 @@ import Layout from '../../layouts/Layout.astro';
       </div>
     </div>
 
-    <h2 class="mt-10 text-2xl font-bold">Inquiries</h2>
-    <form
-      id="filter-form"
-      class="mt-6 grid gap-3 rounded-xl border border-[var(--border)] p-4 md:grid-cols-5"
-    >
-      <input
-        name="keyword"
-        placeholder="Search..."
-        class="rounded border border-[var(--border)] px-3 py-2"
-      />
-      <select name="status" class="rounded border border-[var(--border)] px-3 py-2">
-        <option value="">All Status</option>
-        <option value="new">New</option>
-        <option value="contacted">Contacted</option>
-        <option value="qualified">Qualified</option>
-        <option value="closed">Closed</option>
-        <option value="spam">Spam</option>
-      </select>
-      <input name="dateFrom" type="date" class="rounded border border-[var(--border)] px-3 py-2" />
-      <input name="dateTo" type="date" class="rounded border border-[var(--border)] px-3 py-2" />
-      <button class="btn-primary" type="submit">Filter</button>
-    </form>
+    <div id="admin-auth-banner" class="mt-6"></div>
 
-    <div class="mt-4 flex gap-3">
-      <a
-        class="rounded border border-[var(--border)] px-3 py-2 text-sm"
-        href="/api/admin/inquiries/export">Export CSV</a
+    <div data-admin-protected>
+      <h2 class="mt-10 text-2xl font-bold">Inquiries</h2>
+      <form
+        id="filter-form"
+        class="mt-6 grid gap-3 rounded-xl border border-[var(--border)] p-4 md:grid-cols-5"
       >
-      <a class="rounded border border-[var(--border)] px-3 py-2 text-sm" href="/api/admin/me"
-        >Check Access</a
-      >
+        <input
+          name="keyword"
+          placeholder="Search..."
+          class="rounded border border-[var(--border)] px-3 py-2"
+        />
+        <select name="status" class="rounded border border-[var(--border)] px-3 py-2">
+          <option value="">All Status</option>
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="qualified">Qualified</option>
+          <option value="closed">Closed</option>
+          <option value="spam">Spam</option>
+        </select>
+        <input
+          name="dateFrom"
+          type="date"
+          class="rounded border border-[var(--border)] px-3 py-2"
+        />
+        <input name="dateTo" type="date" class="rounded border border-[var(--border)] px-3 py-2" />
+        <button class="btn-primary" type="submit">Filter</button>
+      </form>
+
+      <div class="mt-4 flex gap-3">
+        <a
+          class="rounded border border-[var(--border)] px-3 py-2 text-sm"
+          href="/api/admin/inquiries/export">Export CSV</a
+        >
+      </div>
+
+      <div id="table" class="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]"></div>
     </div>
-
-    <div id="table" class="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]"></div>
   </section>
 </Layout>
 
 <script>
+  import { initAdminAuthGate } from '../../client/admin-auth';
   import { initAdminInquiryList } from '../../client/admin-inquiry-list';
+  initAdminAuthGate({
+    bannerId: 'admin-auth-banner',
+    protectedSelectors: ['[data-admin-protected]'],
+  });
   initAdminInquiryList();
 </script>

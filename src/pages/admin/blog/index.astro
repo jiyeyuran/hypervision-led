@@ -21,7 +21,7 @@ import Layout from '../../../layouts/Layout.astro';
           Create, edit and delete blog posts. Protected by Cloudflare Access.
         </p>
       </div>
-      <div class="flex gap-3">
+      <div class="flex gap-3" data-admin-protected>
         <a
           href="/admin"
           class="rounded-lg border border-[var(--border)] px-4 py-2 text-sm font-semibold"
@@ -32,12 +32,23 @@ import Layout from '../../../layouts/Layout.astro';
       </div>
     </div>
 
-    <div id="blog-table" class="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]">
+    <div id="admin-auth-banner" class="mt-6"></div>
+
+    <div
+      id="blog-table"
+      class="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]"
+      data-admin-protected
+    >
     </div>
   </section>
 </Layout>
 
 <script>
+  import { initAdminAuthGate } from '../../../client/admin-auth';
   import { initAdminBlogList } from '../../../client/admin-blog-list';
+  initAdminAuthGate({
+    bannerId: 'admin-auth-banner',
+    protectedSelectors: ['[data-admin-protected]'],
+  });
   initAdminBlogList();
 </script>

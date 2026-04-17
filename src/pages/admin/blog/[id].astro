@@ -44,7 +44,9 @@ function toDatetimeLocal(value: string): string {
       </a>
     </div>
 
-    <div data-blog-id={id}>
+    <div id="admin-auth-banner" class="mt-6"></div>
+
+    <div data-blog-id={id} data-admin-protected>
       <AdminBlogForm
         mode="edit"
         initialSlug={blog.slug}
@@ -63,7 +65,12 @@ function toDatetimeLocal(value: string): string {
 </Layout>
 
 <script>
+  import { initAdminAuthGate } from '../../../client/admin-auth';
   import { initAdminBlogEditor } from '../../../client/admin-blog-editor';
+  initAdminAuthGate({
+    bannerId: 'admin-auth-banner',
+    protectedSelectors: ['[data-admin-protected]'],
+  });
   const host = document.querySelector('[data-blog-id]') as HTMLElement | null;
   const blogId = host?.dataset.blogId ?? '';
   if (blogId) {

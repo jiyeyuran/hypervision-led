@@ -22,11 +22,20 @@ import AdminBlogForm from '../../../components/AdminBlogForm.astro';
       Write in Markdown. Drag & drop images into the editor or use the upload button.
     </p>
 
-    <AdminBlogForm mode="create" />
+    <div id="admin-auth-banner" class="mt-6"></div>
+
+    <div data-admin-protected>
+      <AdminBlogForm mode="create" />
+    </div>
   </section>
 </Layout>
 
 <script>
+  import { initAdminAuthGate } from '../../../client/admin-auth';
   import { initAdminBlogEditor } from '../../../client/admin-blog-editor';
+  initAdminAuthGate({
+    bannerId: 'admin-auth-banner',
+    protectedSelectors: ['[data-admin-protected]'],
+  });
   initAdminBlogEditor({ mode: 'create' });
 </script>

@@ -13,8 +13,16 @@ const id = Astro.params.id;
   <section class="container-page py-14">
     <h1 class="text-3xl font-bold">Inquiry Detail</h1>
     <p class="mt-2 text-sm text-[var(--text-subtle)]">ID: {id}</p>
-    <div id="detail" class="mt-6 rounded-xl border border-[var(--border)] p-6"></div>
-    <form id="status-form" class="mt-4 flex gap-3">
+
+    <div id="admin-auth-banner" class="mt-6"></div>
+
+    <div
+      id="detail"
+      class="mt-6 rounded-xl border border-[var(--border)] p-6"
+      data-admin-protected
+    >
+    </div>
+    <form id="status-form" class="mt-4 flex gap-3" data-admin-protected>
       <select name="status" class="rounded border border-[var(--border)] px-3 py-2">
         <option value="new">new</option>
         <option value="contacted">contacted</option>
@@ -29,7 +37,7 @@ const id = Astro.params.id;
       />
       <button class="btn-primary" type="submit">Update Status</button>
     </form>
-    <form id="note-form" class="mt-3 flex gap-3">
+    <form id="note-form" class="mt-3 flex gap-3" data-admin-protected>
       <input
         name="content"
         placeholder="Add note..."
@@ -40,7 +48,15 @@ const id = Astro.params.id;
   </section>
 </Layout>
 
-<script define:vars={{ id }}>
+<script>
+  import { initAdminAuthGate } from '../../../client/admin-auth';
+  initAdminAuthGate({
+    bannerId: 'admin-auth-banner',
+    protectedSelectors: ['[data-admin-protected]'],
+  });
+</script>
+
+<script is:inline define:vars={{ id }}>
   /** @typedef {{ inquiry: any; notes: any[]; statusLogs: any[] }} InquiryDetail */
   const detail = document.getElementById('detail');
   const statusForm = /** @type {HTMLFormElement | null} */ (document.getElementById('status-form'));
