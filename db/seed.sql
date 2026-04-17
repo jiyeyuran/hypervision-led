@@ -1,7 +1,8 @@
 INSERT INTO admin_users (id, email, role, is_active)
 VALUES
-  ('admin_1', 'admin@hypervision-led.com', 'admin', 1),
-  ('editor_1', 'editor@hypervision-led.com', 'editor', 1)
+  ('admin_1', 'carmen@hypervision-led.com', 'admin', 1),
+  ('admin_1', 'jiyeyuran@gmail.com', 'admin', 1),
+  ('editor_1', 'info@hypervision-led.com', 'editor', 1)
 ON CONFLICT(email) DO UPDATE SET role = excluded.role, is_active = excluded.is_active;
 
 INSERT INTO products (

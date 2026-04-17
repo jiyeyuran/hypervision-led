@@ -49,20 +49,28 @@ export async function requireAdmin(
     return null;
   }
 
+  // 第一道门：allowlist（环境变量）只决定"谁能登录后台"。
   const allowlist = parseAllowlist(env.ADMIN_ALLOWLIST);
-  if (allowlist.size > 0 && !allowlist.has(email)) {
+  const isAllowlisted = allowlist.size === 0 || allowlist.has(email);
+  if (!isAllowlisted) {
     return null;
   }
 
-  const user = await queryFirst<{ role: AdminIdentity['role'] }>(
+  // 第二道门：真正的角色由 admin_users 决定。未建表（常见于首次登录）则默认 editor，
+  // 足以写博客 / 上传资源；admin 专属操作（如删除）仍需手动在 admin_users 里升级。
+  // is_active = 0 视为主动停用，直接拒绝。
+  const user = await queryFirst<{ role: AdminIdentity['role']; is_active: number }>(
     env,
-    `SELECT role
+    `SELECT role, is_active
      FROM admin_users
-     WHERE email = ? AND is_active = 1
+     WHERE email = ?
      LIMIT 1`,
     [email],
   );
-  const role = user?.role ?? 'viewer';
+  if (user && user.is_active === 0) {
+    return null;
+  }
+  const role: AdminIdentity['role'] = user?.role ?? 'editor';
   if (!roles.includes(role)) {
     return null;
   }
