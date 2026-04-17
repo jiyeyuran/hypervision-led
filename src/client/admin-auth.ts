@@ -1,5 +1,3 @@
-import { CF_ACCESS_TEAM_DOMAIN } from '../lib/access-config';
-
 interface AdminMeResponse {
   success?: boolean;
   data?: { email: string; role: 'admin' | 'editor' | 'viewer' };
@@ -7,8 +5,8 @@ interface AdminMeResponse {
 }
 
 function buildAccessLoginUrl(): string {
-  const redirect = encodeURIComponent(window.location.href);
-  return `https://${CF_ACCESS_TEAM_DOMAIN}/cdn-cgi/access/login/${window.location.hostname}?redirect_url=${redirect}`;
+  // Let Cloudflare Access 302 us to the right login URL with the proper kid/aud.
+  return '/admin';
 }
 
 function buildAccessLogoutUrl(): string {
