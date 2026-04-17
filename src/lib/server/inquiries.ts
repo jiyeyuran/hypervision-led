@@ -123,7 +123,11 @@ export async function listInquiries(
 }
 
 export async function getInquiryDetails(env: AppEnv, id: string) {
-  const inquiry = await queryFirst<InquiryRow>(env, `SELECT * FROM inquiries WHERE id = ? LIMIT 1`, [id]);
+  const inquiry = await queryFirst<InquiryRow>(
+    env,
+    `SELECT * FROM inquiries WHERE id = ? LIMIT 1`,
+    [id],
+  );
   if (!inquiry) {
     return null;
   }
@@ -173,10 +177,11 @@ export async function changeInquiryStatus(
     return true;
   }
 
-  await execute(env, `UPDATE inquiries SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`, [
-    status,
-    id,
-  ]);
+  await execute(
+    env,
+    `UPDATE inquiries SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+    [status, id],
+  );
   await execute(
     env,
     `INSERT INTO inquiry_status_logs (
@@ -187,7 +192,12 @@ export async function changeInquiryStatus(
   return true;
 }
 
-export async function addInquiryNote(env: AppEnv, id: string, content: string, operatorEmail: string) {
+export async function addInquiryNote(
+  env: AppEnv,
+  id: string,
+  content: string,
+  operatorEmail: string,
+) {
   await execute(
     env,
     `INSERT INTO inquiry_notes (id, inquiry_id, content, created_by)

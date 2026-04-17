@@ -26,13 +26,20 @@ const products = await getProducts(env);
         products.map((item, index) => (
           <article class="rounded-xl border border-[var(--border)] p-5">
             <div class="image-card h-44">
-              <img src={resolveImage(item.cover_image, index)} alt={pickLocalized(item, 'title', language)} loading="lazy" />
+              <img
+                src={resolveImage(item.cover_image, index)}
+                alt={pickLocalized(item, 'title', language)}
+                loading="lazy"
+              />
             </div>
             <h2 class="mt-4 text-lg font-semibold">{pickLocalized(item, 'title', language)}</h2>
             <p class="mt-2 line-clamp-3 text-sm text-[var(--text-subtle)]">
               {pickLocalized(item, 'excerpt', language)}
             </p>
-            <a href={`/zh/products/${item.slug}`} class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]">
+            <a
+              href={`/zh/products/${item.slug}`}
+              class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]"
+            >
               查看详情 →
             </a>
           </article>

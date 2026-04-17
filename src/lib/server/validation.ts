@@ -34,3 +34,22 @@ export const statusUpdateSchema = z.object({
 export const noteCreateSchema = z.object({
   content: z.string().min(1).max(2000),
 });
+
+export const blogUpsertSchema = z.object({
+  slug: z
+    .string()
+    .min(2)
+    .max(120)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u, 'Slug must be kebab-case ASCII.'),
+  title_en: z.string().min(1).max(200),
+  title_zh: z.string().min(1).max(200),
+  excerpt_en: z.string().min(1).max(500),
+  excerpt_zh: z.string().min(1).max(500),
+  content_en: z.string().min(1).max(100_000),
+  content_zh: z.string().min(1).max(100_000),
+  cover_image: z.string().max(1000).nullable().optional(),
+  is_published: z.coerce.boolean().default(true),
+  published_at: z.string().max(40).nullable().optional(),
+});
+
+export type BlogUpsertPayload = z.infer<typeof blogUpsertSchema>;

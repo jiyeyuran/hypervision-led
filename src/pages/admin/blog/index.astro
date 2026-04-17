@@ -1,0 +1,43 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  language="en"
+  title="Admin | Blog Management"
+  description="Create, edit and delete blog posts."
+  path="/admin/blog"
+>
+  <section class="container-page py-10 md:py-14">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div>
+        <nav class="mb-2 text-xs text-[var(--text-subtle)]">
+          <a class="hover:text-[var(--brand)]" href="/admin">Admin</a>
+          <span class="mx-1">/</span>
+          <span>Blog</span>
+        </nav>
+        <h1 class="text-3xl font-bold">Blog Management</h1>
+        <p class="mt-2 text-sm text-[var(--text-subtle)]">
+          Create, edit and delete blog posts. Protected by Cloudflare Access.
+        </p>
+      </div>
+      <div class="flex gap-3">
+        <a
+          href="/admin"
+          class="rounded-lg border border-[var(--border)] px-4 py-2 text-sm font-semibold"
+        >
+          ← Back
+        </a>
+        <a href="/admin/blog/new" class="btn-primary !px-4 !py-2 !text-sm">+ New Post</a>
+      </div>
+    </div>
+
+    <div id="blog-table" class="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]">
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { initAdminBlogList } from '../../../client/admin-blog-list';
+  initAdminBlogList();
+</script>

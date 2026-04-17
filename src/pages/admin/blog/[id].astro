@@ -1,0 +1,72 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import AdminBlogForm from '../../../components/AdminBlogForm.astro';
+import { getWorkerEnv } from '../../../lib/server/worker-env';
+import { getAdminBlog } from '../../../lib/server/content';
+
+const id = String(Astro.params.id ?? '');
+const env = getWorkerEnv();
+const blog = id ? await getAdminBlog(env, id) : null;
+
+if (!blog) {
+  return Astro.redirect('/admin/blog');
+}
+
+function toDatetimeLocal(value: string): string {
+  const normalized = value.includes('T') ? value : value.replace(' ', 'T');
+  return normalized.slice(0, 16);
+}
+---
+
+<Layout
+  language="en"
+  title={`Admin | Edit ${blog.title_en}`}
+  description="Edit blog post content."
+  path={`/admin/blog/${id}`}
+>
+  <section class="container-page py-10 md:py-14">
+    <nav class="mb-2 text-xs text-[var(--text-subtle)]">
+      <a class="hover:text-[var(--brand)]" href="/admin">Admin</a>
+      <span class="mx-1">/</span>
+      <a class="hover:text-[var(--brand)]" href="/admin/blog">Blog</a>
+      <span class="mx-1">/</span>
+      <span>Edit</span>
+    </nav>
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <h1 class="text-3xl font-bold">Edit Blog Post</h1>
+      <a
+        href={`/blog/${blog.slug}`}
+        target="_blank"
+        rel="noreferrer"
+        class="text-sm font-semibold text-[var(--brand)] hover:underline"
+      >
+        View public page →
+      </a>
+    </div>
+
+    <div data-blog-id={id}>
+      <AdminBlogForm
+        mode="edit"
+        initialSlug={blog.slug}
+        initialTitleEn={blog.title_en}
+        initialTitleZh={blog.title_zh}
+        initialExcerptEn={blog.excerpt_en}
+        initialExcerptZh={blog.excerpt_zh}
+        initialContentEn={blog.content_en}
+        initialContentZh={blog.content_zh}
+        initialCover={blog.cover_image}
+        initialPublished={blog.is_published === 1}
+        initialPublishedAt={toDatetimeLocal(blog.published_at)}
+      />
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { initAdminBlogEditor } from '../../../client/admin-blog-editor';
+  const host = document.querySelector('[data-blog-id]') as HTMLElement | null;
+  const blogId = host?.dataset.blogId ?? '';
+  if (blogId) {
+    initAdminBlogEditor({ mode: 'edit', blogId });
+  }
+</script>

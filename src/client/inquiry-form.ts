@@ -3,6 +3,17 @@ interface ApiErrorPayload {
   details?: { fieldErrors?: Record<string, string[]> };
 }
 
+interface TurnstileApi {
+  reset: (widget?: Element | string) => void;
+  getResponse: (widget?: Element | string) => string | undefined;
+}
+
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi;
+  }
+}
+
 const FIELD_LABELS: Record<string, string> = {
   company: 'Company',
   name: 'Name',
@@ -14,6 +25,7 @@ const FIELD_LABELS: Record<string, string> = {
   budget: 'Budget',
   quantity: 'Quantity',
   attachment: 'Attachment',
+  turnstileToken: 'Verification',
 };
 
 function formatFieldErrors(payload: ApiErrorPayload): string | undefined {
@@ -27,20 +39,6 @@ function formatFieldErrors(payload: ApiErrorPayload): string | undefined {
     }
   }
   return lines.length > 0 ? lines.join('\n') : payload.message;
-}
-
-async function readErrorInfo(response: Response): Promise<string | undefined> {
-  const contentType = response.headers.get('content-type') ?? '';
-  if (contentType.includes('application/json')) {
-    try {
-      const payload = (await response.json()) as ApiErrorPayload;
-      return formatFieldErrors(payload);
-    } catch {
-      return undefined;
-    }
-  }
-  const text = await response.text();
-  return text.trim() || undefined;
 }
 
 function clearFieldErrors(form: HTMLFormElement) {
@@ -66,7 +64,29 @@ function showFieldErrors(form: HTMLFormElement, payload: ApiErrorPayload) {
   }
 }
 
-export function initInquiryForm(formId: string, resultId: string, successMessage: string, failFallback: string) {
+function resetTurnstile(form: HTMLFormElement) {
+  const widget = form.querySelector<HTMLElement>('.cf-turnstile');
+  if (widget && window.turnstile) {
+    try {
+      window.turnstile.reset(widget);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+export interface InquiryFormOptions {
+  formId: string;
+  resultId: string;
+  successMessage: string;
+  failFallback: string;
+  captchaMessage?: string;
+}
+
+export function initInquiryForm(options: InquiryFormOptions) {
+  const { formId, resultId, successMessage, failFallback } = options;
+  const captchaMessage =
+    options.captchaMessage ?? 'Please complete the verification challenge before submitting.';
   const form = document.getElementById(formId) as HTMLFormElement | null;
   const result = document.getElementById(resultId);
   form?.addEventListener('submit', async (event) => {
@@ -80,9 +100,28 @@ export function initInquiryForm(formId: string, resultId: string, successMessage
       result.className = 'text-sm';
     }
 
+    const formData = new FormData(target);
+    const turnstileWidget = target.querySelector<HTMLElement>('.cf-turnstile');
+    if (turnstileWidget) {
+      const responseField = formData.get('cf-turnstile-response');
+      const token =
+        typeof responseField === 'string' && responseField.length > 0
+          ? responseField
+          : (window.turnstile?.getResponse(turnstileWidget) ?? '');
+      formData.delete('cf-turnstile-response');
+      if (!token) {
+        if (result) {
+          result.textContent = captchaMessage;
+          result.classList.add('text-red-500');
+        }
+        return;
+      }
+      formData.set('turnstileToken', token);
+    }
+
     const response = await fetch('/api/inquiries', {
       method: 'POST',
-      body: new FormData(target),
+      body: formData,
     });
 
     if (!response.ok) {
@@ -93,7 +132,9 @@ export function initInquiryForm(formId: string, resultId: string, successMessage
           const payload = (await response.json()) as ApiErrorPayload;
           showFieldErrors(target, payload);
           errorMsg = formatFieldErrors(payload) ?? failFallback;
-        } catch { /* use fallback */ }
+        } catch {
+          /* use fallback */
+        }
       } else {
         const text = await response.text();
         if (text.trim()) errorMsg = text.trim();
@@ -102,6 +143,7 @@ export function initInquiryForm(formId: string, resultId: string, successMessage
         result.textContent = errorMsg;
         result.classList.add('text-red-500');
       }
+      resetTurnstile(target);
       return;
     }
 
@@ -110,5 +152,6 @@ export function initInquiryForm(formId: string, resultId: string, successMessage
       result.classList.add('text-green-600');
     }
     target.reset();
+    resetTurnstile(target);
   });
 }

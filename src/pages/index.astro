@@ -17,18 +17,33 @@ const t = messages[language];
     <div class="hero-shell">
       <img src={visualAssets.hero} alt="Large LED display installation" loading="eager" />
       <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20"></div>
-      <div class="relative flex h-full min-h-[360px] items-center px-5 py-10 md:min-h-[460px] md:px-12 md:py-14">
+      <div
+        class="relative flex h-full min-h-[360px] items-center px-5 py-10 md:min-h-[460px] md:px-12 md:py-14"
+      >
         <div class="text-white">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue-200 md:text-sm">B2B LED Display</p>
+          <p
+            class="mb-3 text-xs font-semibold tracking-[0.18em] text-blue-200 uppercase md:text-sm"
+          >
+            B2B LED Display
+          </p>
           <h1 class="hero-title max-w-3xl">{t.home.heroTitle}</h1>
-          <p class="mt-4 max-w-2xl text-base text-white/85 md:mt-5 md:text-lg">{t.home.heroDescription}</p>
+          <p class="mt-4 max-w-2xl text-base text-white/85 md:mt-5 md:text-lg">
+            {t.home.heroDescription}
+          </p>
           <div class="mt-6 flex flex-wrap gap-3 md:mt-8">
-            <a href={getLocalizedPath('/inquiry', language)} class="btn-primary">{t.home.ctaPrimary}</a>
-            <a href={getLocalizedPath('/products', language)} class="rounded-lg border border-white/50 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur hover:bg-white/20">
+            <a href={getLocalizedPath('/inquiry', language)} class="btn-primary"
+              >{t.home.ctaPrimary}</a
+            >
+            <a
+              href={getLocalizedPath('/products', language)}
+              class="rounded-lg border border-white/50 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur hover:bg-white/20"
+            >
               {t.home.ctaSecondary}
             </a>
           </div>
-          <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur md:text-sm">
+          <p
+            class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 backdrop-blur md:text-sm"
+          >
             <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
             {t.home.trustBadge}
           </p>
@@ -56,7 +71,10 @@ const t = messages[language];
         <h2 class="section-title">{t.home.scenesTitle}</h2>
         <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.scenesDesc}</p>
       </div>
-      <a href={getLocalizedPath('/products', language)} class="text-sm font-semibold text-[var(--brand)] hover:underline">
+      <a
+        href={getLocalizedPath('/products', language)}
+        class="text-sm font-semibold text-[var(--brand)] hover:underline"
+      >
         {t.home.ctaSecondary} →
       </a>
     </div>
@@ -64,7 +82,12 @@ const t = messages[language];
       {
         visualAssets.scenes.slice(0, 3).map((image, index) => (
           <article class="image-card">
-            <img src={image} alt={`LED display application scene ${index + 1}`} loading="lazy" class="h-48 md:h-56" />
+            <img
+              src={image}
+              alt={`LED display application scene ${index + 1}`}
+              loading="lazy"
+              class="h-48 md:h-56"
+            />
           </article>
         ))
       }
@@ -99,7 +122,11 @@ const t = messages[language];
   <section class="container-page pt-12 md:pt-16">
     <div class="grid gap-6 md:grid-cols-2 md:gap-8">
       <article class="image-card h-64 md:h-80">
-        <img src={visualAssets.factory} alt="HyperVision LED manufacturing facility" loading="lazy" />
+        <img
+          src={visualAssets.factory}
+          alt="HyperVision LED manufacturing facility"
+          loading="lazy"
+        />
       </article>
       <article class="rounded-xl border border-[var(--border)] p-6 md:p-8">
         <h3 class="text-xl font-semibold md:text-2xl">{t.home.factoryTitle}</h3>
@@ -108,13 +135,16 @@ const t = messages[language];
           {
             t.home.factoryPoints.map((p) => (
               <li class="flex items-start gap-2">
-                <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[var(--brand)]"></span>
+                <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[var(--brand)]" />
                 <span>{p}</span>
               </li>
             ))
           }
         </ul>
-        <a href={getLocalizedPath('/about', language)} class="mt-5 inline-block text-sm font-semibold text-[var(--brand)] hover:underline">
+        <a
+          href={getLocalizedPath('/about', language)}
+          class="mt-5 inline-block text-sm font-semibold text-[var(--brand)] hover:underline"
+        >
           {t.nav.about} →
         </a>
       </article>
@@ -143,7 +173,9 @@ const t = messages[language];
       {
         t.home.process.map((item) => (
           <article class="feature-card">
-            <span class="text-sm font-bold tracking-[0.18em] text-[var(--brand)]">STEP {item.step}</span>
+            <span class="text-sm font-bold tracking-[0.18em] text-[var(--brand)]">
+              STEP {item.step}
+            </span>
             <h3 class="mt-2 text-lg font-semibold">{item.title}</h3>
             <p class="mt-2 text-sm text-[var(--text-subtle)]">{item.desc}</p>
           </article>
@@ -158,8 +190,14 @@ const t = messages[language];
       {
         t.home.testimonials.map((tm) => (
           <article class="feature-card">
-            <svg class="h-6 w-6 text-[var(--brand)]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3H3v2h1a5 5 0 0 0 5-5V7zm12 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3h-1v2h1a5 5 0 0 0 5-5V7z"></path>
+            <svg
+              class="h-6 w-6 text-[var(--brand)]"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3H3v2h1a5 5 0 0 0 5-5V7zm12 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3h-1v2h1a5 5 0 0 0 5-5V7z" />
             </svg>
             <p class="mt-3 text-sm leading-relaxed text-[var(--text)]">{tm.quote}</p>
             <div class="mt-4 text-xs text-[var(--text-subtle)]">
@@ -178,7 +216,10 @@ const t = messages[language];
         <h2 class="section-title">{t.home.newsTitle}</h2>
         <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">{t.home.newsDesc}</p>
       </div>
-      <a href={getLocalizedPath('/blog', language)} class="text-sm font-semibold text-[var(--brand)] hover:underline">
+      <a
+        href={getLocalizedPath('/blog', language)}
+        class="text-sm font-semibold text-[var(--brand)] hover:underline"
+      >
         {t.nav.blog} →
       </a>
     </div>
@@ -187,13 +228,21 @@ const t = messages[language];
         t.home.news.map((n, idx) => (
           <article class="feature-card overflow-hidden p-0">
             <div class="image-card rounded-none border-0 border-b border-[var(--border)]">
-              <img src={visualAssets.news[idx % visualAssets.news.length]} alt={n.title} loading="lazy" class="h-44" />
+              <img
+                src={visualAssets.news[idx % visualAssets.news.length]}
+                alt={n.title}
+                loading="lazy"
+                class="h-44"
+              />
             </div>
             <div class="p-5">
               <p class="text-xs text-[var(--text-subtle)]">{n.date}</p>
-              <h3 class="mt-2 text-lg font-semibold leading-snug">{n.title}</h3>
+              <h3 class="mt-2 text-lg leading-snug font-semibold">{n.title}</h3>
               <p class="mt-2 text-sm text-[var(--text-subtle)]">{n.excerpt}</p>
-              <a href={getLocalizedPath('/blog', language)} class="mt-3 inline-block text-sm font-semibold text-[var(--brand)] hover:underline">
+              <a
+                href={getLocalizedPath('/blog', language)}
+                class="mt-3 inline-block text-sm font-semibold text-[var(--brand)] hover:underline"
+              >
                 Read More →
               </a>
             </div>
@@ -210,7 +259,12 @@ const t = messages[language];
       {
         visualAssets.scenes.slice(3).map((image, index) => (
           <article class="image-card">
-            <img src={image} alt={`Global project image ${index + 1}`} loading="lazy" class="h-44 md:h-52" />
+            <img
+              src={image}
+              alt={`Global project image ${index + 1}`}
+              loading="lazy"
+              class="h-44 md:h-52"
+            />
           </article>
         ))
       }
@@ -232,16 +286,24 @@ const t = messages[language];
   </section>
 
   <section class="container-page pt-12 md:pt-16">
-    <div class="cta-banner flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+    <div
+      class="cta-banner flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between"
+    >
       <div>
         <h3 class="text-xl font-bold md:text-2xl">{t.home.ctaBannerTitle}</h3>
         <p class="mt-2 text-sm text-white/85 md:text-base">{t.home.ctaBannerDesc}</p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <a href={getLocalizedPath('/inquiry', language)} class="rounded-lg bg-white px-5 py-3 font-semibold text-[var(--brand-dark)] hover:bg-white/90">
+        <a
+          href={getLocalizedPath('/inquiry', language)}
+          class="rounded-lg bg-white px-5 py-3 font-semibold text-[var(--brand-dark)] hover:bg-white/90"
+        >
           {t.home.ctaPrimary}
         </a>
-        <a href={getLocalizedPath('/contact', language)} class="rounded-lg border border-white/60 bg-white/10 px-5 py-3 font-semibold text-white hover:bg-white/20">
+        <a
+          href={getLocalizedPath('/contact', language)}
+          class="rounded-lg border border-white/60 bg-white/10 px-5 py-3 font-semibold text-white hover:bg-white/20"
+        >
           {t.nav.contact}
         </a>
       </div>

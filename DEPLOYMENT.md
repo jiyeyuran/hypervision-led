@@ -39,6 +39,7 @@ cp .dev.vars.example .dev.vars
 ```
 
 编辑 `.dev.vars`，填写：
+
 - `CF_ACCESS_AUD`
 - `ADMIN_ALLOWLIST`
 - `CRM_WEBHOOK_URL` / `CRM_WEBHOOK_TOKEN`
@@ -75,6 +76,7 @@ npx wrangler deploy --config wrangler.queue.toml
 ## 8) Cloudflare Access 保护后台
 
 在 Zero Trust -> Access 中创建应用规则：
+
 - 保护路径：`https://your-domain.com/admin/*` 与 `https://your-domain.com/api/admin/*`
 - 允许用户：`ADMIN_ALLOWLIST` 对应邮箱
 

@@ -49,14 +49,14 @@ Create a `.dev.vars` file from `.dev.vars.example` for local environment variabl
 
 ## Commands
 
-| Command | Action |
-|:---|:---|
-| `npm run dev` | Start local dev server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run check` | Run Astro type checks |
-| `npm run cf:types` | Generate Wrangler binding types |
-| `npm run cf:deploy` | Deploy to Cloudflare |
+| Command             | Action                          |
+| :------------------ | :------------------------------ |
+| `npm run dev`       | Start local dev server          |
+| `npm run build`     | Build for production            |
+| `npm run preview`   | Preview production build        |
+| `npm run check`     | Run Astro type checks           |
+| `npm run cf:types`  | Generate Wrangler binding types |
+| `npm run cf:deploy` | Deploy to Cloudflare            |
 
 ## Deployment
 

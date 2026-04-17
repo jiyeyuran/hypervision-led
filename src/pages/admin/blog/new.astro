@@ -1,0 +1,32 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import AdminBlogForm from '../../../components/AdminBlogForm.astro';
+---
+
+<Layout
+  language="en"
+  title="Admin | New Blog Post"
+  description="Create a new blog post."
+  path="/admin/blog/new"
+>
+  <section class="container-page py-10 md:py-14">
+    <nav class="mb-2 text-xs text-[var(--text-subtle)]">
+      <a class="hover:text-[var(--brand)]" href="/admin">Admin</a>
+      <span class="mx-1">/</span>
+      <a class="hover:text-[var(--brand)]" href="/admin/blog">Blog</a>
+      <span class="mx-1">/</span>
+      <span>New</span>
+    </nav>
+    <h1 class="text-3xl font-bold">New Blog Post</h1>
+    <p class="mt-2 text-sm text-[var(--text-subtle)]">
+      Write in Markdown. Drag & drop images into the editor or use the upload button.
+    </p>
+
+    <AdminBlogForm mode="create" />
+  </section>
+</Layout>
+
+<script>
+  import { initAdminBlogEditor } from '../../../client/admin-blog-editor';
+  initAdminBlogEditor({ mode: 'create' });
+</script>

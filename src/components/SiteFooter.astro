@@ -15,7 +15,10 @@ const t = messages[language];
     <div class="grid gap-8 md:grid-cols-4">
       <div class="md:col-span-2">
         <div class="flex items-center gap-2">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-md bg-[var(--brand)] text-white font-semibold">HV</span>
+          <span
+            class="inline-flex h-9 w-9 items-center justify-center rounded-md bg-[var(--brand)] font-semibold text-white"
+            >HV</span
+          >
           <span class="text-lg font-semibold">{t.siteName}</span>
         </div>
         <p class="mt-4 max-w-md text-sm leading-relaxed text-[var(--text-subtle)]">
@@ -23,39 +26,78 @@ const t = messages[language];
         </p>
         <div class="mt-4 space-y-1 text-sm text-[var(--text-subtle)]">
           <p>{t.footer.address}</p>
-          <p>Email: <a class="hover:text-[var(--brand)]" href={`mailto:${t.footer.email}`}>{t.footer.email}</a></p>
-          <p>Phone: <a class="hover:text-[var(--brand)]" href={`tel:${t.footer.phone.replace(/[^+\d]/g, '')}`}>{t.footer.phone}</a></p>
+          <p>
+            Email: <a class="hover:text-[var(--brand)]" href={`mailto:${t.footer.email}`}
+              >{t.footer.email}</a>
+          </p>
+          <p>
+            Phone: <a
+              class="hover:text-[var(--brand)]"
+              href={`tel:${t.footer.phone.replace(/[^+\d]/g, '')}`}>{t.footer.phone}</a>
+          </p>
         </div>
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wide">{t.footer.quickLinks}</h3>
+        <h3 class="text-sm font-semibold tracking-wide uppercase">{t.footer.quickLinks}</h3>
         <ul class="mt-4 space-y-2 text-sm text-[var(--text-subtle)]">
-          <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/', language)}>{t.nav.home}</a></li>
-          <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/about', language)}>{t.nav.about}</a></li>
-          <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/products', language)}>{t.nav.products}</a></li>
-          <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/blog', language)}>{t.nav.blog}</a></li>
-          <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/contact', language)}>{t.nav.contact}</a></li>
-          <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/inquiry', language)}>{t.nav.inquiry}</a></li>
+          <li>
+            <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/', language)}
+              >{t.nav.home}</a>
+          </li>
+          <li>
+            <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/about', language)}
+              >{t.nav.about}</a>
+          </li>
+          <li>
+            <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/products', language)}
+              >{t.nav.products}</a>
+          </li>
+          <li>
+            <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/blog', language)}
+              >{t.nav.blog}</a>
+          </li>
+          <li>
+            <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/contact', language)}
+              >{t.nav.contact}</a>
+          </li>
+          <li>
+            <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/inquiry', language)}
+              >{t.nav.inquiry}</a>
+          </li>
         </ul>
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wide">{t.footer.categories}</h3>
+        <h3 class="text-sm font-semibold tracking-wide uppercase">{t.footer.categories}</h3>
         <ul class="mt-4 space-y-2 text-sm text-[var(--text-subtle)]">
-          {t.footer.categoryItems.map((label) => (
-            <li><a class="hover:text-[var(--brand)]" href={getLocalizedPath('/products', language)}>{label}</a></li>
-          ))}
+          {
+            t.footer.categoryItems.map((label) => (
+              <li>
+                <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/products', language)}>
+                  {label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
 
-    <div class="mt-10 flex flex-col gap-3 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-subtle)] md:flex-row md:items-center md:justify-between">
+    <div
+      class="mt-10 flex flex-col gap-3 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-subtle)] md:flex-row md:items-center md:justify-between"
+    >
       <p>© {new Date().getFullYear()} {t.siteName}. {t.footer.copyright}</p>
-      <div class="flex flex-wrap gap-4">
-        <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/about', language)}>{t.nav.about}</a>
-        <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/contact', language)}>{t.nav.contact}</a>
-        <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/inquiry', language)}>{t.nav.inquiry}</a>
+      <div class="hidden flex-wrap gap-4 md:flex">
+        <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/about', language)}
+          >{t.nav.about}</a
+        >
+        <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/contact', language)}
+          >{t.nav.contact}</a
+        >
+        <a class="hover:text-[var(--brand)]" href={getLocalizedPath('/inquiry', language)}
+          >{t.nav.inquiry}</a
+        >
       </div>
     </div>
   </div>

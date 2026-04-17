@@ -15,21 +15,38 @@ const posts = await getBlogs(env);
   description="Insights on LED display technology, projects and maintenance."
   path="/blog"
 >
-  <section class="container-page py-14">
-    <h1 class="text-4xl font-bold">Blog</h1>
-    <div class="mt-8 space-y-5">
-      {
-        posts.map((post) => (
-          <article class="rounded-xl border border-[var(--border)] p-6">
-            <p class="text-xs text-[var(--text-subtle)]">{post.published_at.slice(0, 10)}</p>
-            <h2 class="mt-2 text-2xl font-semibold">{pickLocalized(post, 'title', language)}</h2>
-            <p class="mt-2 text-sm text-[var(--text-subtle)]">{pickLocalized(post, 'excerpt', language)}</p>
-            <a href={`/blog/${post.slug}`} class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]">
-              Read more →
+  <section class="container-page py-10 md:py-14">
+    <h1 class="text-3xl font-bold md:text-4xl">Blog</h1>
+    <p class="mt-2 text-sm text-[var(--text-subtle)] md:text-base">
+      Insights on LED display technology, projects and maintenance.
+    </p>
+    {
+      posts.length === 0 ? (
+        <p class="mt-8 rounded-xl border border-[var(--border)] p-8 text-center text-sm text-[var(--text-subtle)]">
+          No blog posts yet. Come back soon!
+        </p>
+      ) : (
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <a
+              href={`/blog/${post.slug}`}
+              class="feature-card overflow-hidden p-0 transition hover:shadow-lg"
+            >
+              <article>
+                <p class="p-6 pb-0 text-xs text-[var(--text-subtle)]">
+                  {post.published_at.slice(0, 10)}
+                </p>
+                <h2 class="mt-2 px-6 text-lg leading-snug font-semibold">
+                  {pickLocalized(post, 'title', language)}
+                </h2>
+                <p class="mt-2 line-clamp-3 px-6 pb-6 text-sm text-[var(--text-subtle)]">
+                  {pickLocalized(post, 'excerpt', language)}
+                </p>
+              </article>
             </a>
-          </article>
-        ))
-      }
-    </div>
+          ))}
+        </div>
+      )
+    }
   </section>
 </Layout>

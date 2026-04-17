@@ -11,6 +11,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
+    "lint": "eslint . --ext .js,.ts,.astro",
+    "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
+    "format": "prettier --write \"**/*.{js,ts,astro,css,md,json}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,astro,css,md,json}\"",
     "cf:deploy": "wrangler deploy",
     "cf:types": "wrangler types"
   },
@@ -19,7 +23,9 @@
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.1",
+    "easymde": "^2.20.0",
     "jose": "^6.2.2",
+    "marked": "^18.0.1",
     "tailwindcss": "^4.2.2",
     "wrangler": "^4.77.0",
     "zod": "^4.3.6"
@@ -30,6 +36,14 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@cloudflare/workers-types": "^4.20260317.1",
-    "typescript": "^5.9.3"
+    "@eslint/js": "^10.0.1",
+    "@types/marked": "^5.0.2",
+    "eslint": "^10.2.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.2"
   }
 }

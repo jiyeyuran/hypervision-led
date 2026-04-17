@@ -88,10 +88,26 @@ export const messages = {
       processTitle: 'From Inquiry to Installation',
       processDesc: 'A transparent, structured B2B process that gives overseas buyers confidence.',
       process: [
-        { step: '01', title: 'Inquiry', desc: 'Share project size, pixel pitch and installation environment.' },
-        { step: '02', title: 'Proposal', desc: 'We return pricing, drawings and solution within 12 hours.' },
-        { step: '03', title: 'Production', desc: 'SMT, aging test and 72-hour load burn-in before packing.' },
-        { step: '04', title: 'Installation', desc: 'On-site guidance, commissioning and long-term maintenance.' },
+        {
+          step: '01',
+          title: 'Inquiry',
+          desc: 'Share project size, pixel pitch and installation environment.',
+        },
+        {
+          step: '02',
+          title: 'Proposal',
+          desc: 'We return pricing, drawings and solution within 12 hours.',
+        },
+        {
+          step: '03',
+          title: 'Production',
+          desc: 'SMT, aging test and 72-hour load burn-in before packing.',
+        },
+        {
+          step: '04',
+          title: 'Installation',
+          desc: 'On-site guidance, commissioning and long-term maintenance.',
+        },
       ],
       testimonialsTitle: 'What Global Partners Say',
       testimonials: [
@@ -160,7 +176,8 @@ export const messages = {
       galleryTitle: 'Global Project Gallery',
       galleryDesc: 'Selected installations from our worldwide deployments.',
       scenesTitle: 'Featured Application Scenes',
-      scenesDesc: 'Image-focused references for retail, exhibition, control room and outdoor campaigns.',
+      scenesDesc:
+        'Image-focused references for retail, exhibition, control room and outdoor campaigns.',
       factoryTitle: 'Factory & Process Visibility',
       factoryDesc:
         'Inspired by high-conversion B2B LED sites, we emphasize visual proof: workshop scenes, QC photos, and deployment snapshots to improve trust for overseas buyers.',
@@ -180,7 +197,8 @@ export const messages = {
       capabilityTitle: 'Factory & Capacity',
       capabilityDesc: '8 automated lines, SMT process control, and monthly output over 12,000 sqm.',
       engineeringTitle: 'Engineering Support',
-      engineeringDesc: 'CAD drawing, thermal simulation, installation guide, and after-sales maintenance support.',
+      engineeringDesc:
+        'CAD drawing, thermal simulation, installation guide, and after-sales maintenance support.',
       certTitle: 'Certificates & Project Photos',
     },
     contact: {
@@ -223,8 +241,7 @@ export const messages = {
     },
     home: {
       heroTitle: '面向全球品牌的工业级 LED 显示方案',
-      heroDescription:
-        '我们为零售、活动、交通和智慧城市项目提供稳定可靠的 LED 显示系统。',
+      heroDescription: '我们为零售、活动、交通和智慧城市项目提供稳定可靠的 LED 显示系统。',
       ctaPrimary: '获取报价',
       ctaSecondary: '查看产品',
       trustBadge: '已为 60+ 国家的 1,200+ 项目交付',
@@ -247,7 +264,10 @@ export const messages = {
       whyTitle: '为什么选择 HyperVision',
       whyDesc: '我们的产品在新老客户中广受赞誉，值得全球合作伙伴信赖。',
       why: [
-        { title: '经验', desc: '12 年 LED 显示屏研发制造经验，工程师、设计师和产线工人组成专业团队。' },
+        {
+          title: '经验',
+          desc: '12 年 LED 显示屏研发制造经验，工程师、设计师和产线工人组成专业团队。',
+        },
         { title: '质保', desc: '2-3 年高品质质保，全球合作伙伴提供本地化响应服务。' },
         { title: '资质', desc: '通过 CE EMC、RoHS、FCC、UL 等国际认证，满足全球市场准入。' },
         { title: '品质', desc: '工厂直供价格，严格 QC：老化测试、带载烤机与色彩校准。' },
@@ -270,7 +290,8 @@ export const messages = {
           company: '西班牙体育场',
         },
         {
-          quote: '我们用 HyperVision 的小间距屏幕同时上线了 40 家零售门店，按期交付且批次间亮度一致。',
+          quote:
+            '我们用 HyperVision 的小间距屏幕同时上线了 40 家零售门店，按期交付且批次间亮度一致。',
           author: '零售技术负责人',
           company: '阿联酋奢侈品品牌',
         },
@@ -286,8 +307,7 @@ export const messages = {
         {
           date: '2026-03-26',
           title: '创意 LED 屏如何在 3 秒内抓住注意力',
-          excerpt:
-            '在竞争激烈的零售环境中，快闪店是第一印象决定成败的高影响力营销节点。',
+          excerpt: '在竞争激烈的零售环境中，快闪店是第一印象决定成败的高影响力营销节点。',
         },
         {
           date: '2026-02-12',
@@ -298,15 +318,20 @@ export const messages = {
         {
           date: '2026-01-07',
           title: '把商场“死角”改造成高溢价数字展位',
-          excerpt:
-            '立柱、狭窄门厅和过道曾是被浪费的空间，室内 LED 屏正在重写它们的商业价值。',
+          excerpt: '立柱、狭窄门厅和过道曾是被浪费的空间，室内 LED 屏正在重写它们的商业价值。',
         },
       ],
       faqTitle: '常见问题',
       faq: [
         { q: '标准交期是多久？', a: '标准型号 7-15 天发货，定制尺寸与色彩校准批次 20-30 天。' },
-        { q: '是否支持 OEM / ODM？', a: '支持 logo 印刷、定制箱体尺寸、定制电源系统以及完整 ODM 联合研发。' },
-        { q: '支持哪些付款方式？', a: '支持 T/T、L/C 与担保交易，常规为 30% 定金、70% 发货前付清。' },
+        {
+          q: '是否支持 OEM / ODM？',
+          a: '支持 logo 印刷、定制箱体尺寸、定制电源系统以及完整 ODM 联合研发。',
+        },
+        {
+          q: '支持哪些付款方式？',
+          a: '支持 T/T、L/C 与担保交易，常规为 30% 定金、70% 发货前付清。',
+        },
         { q: '如何保证品质？', a: '每批次都经过 SMT AOI、72 小时老化、高低温测试与色彩校准。' },
       ],
       ctaBannerTitle: '准备启动您的 LED 显示项目？',
@@ -316,13 +341,13 @@ export const messages = {
       scenesTitle: '精选应用场景',
       scenesDesc: '强化图片展示：商业、展览、控制室、户外广告等应用场景。',
       factoryTitle: '工厂可视化实力',
-      factoryDesc: '参考头部外贸网站，我们增加了更高密度的实拍图：产线、老化测试、交付案例，提升海外客户信任度。',
+      factoryDesc:
+        '参考头部外贸网站，我们增加了更高密度的实拍图：产线、老化测试、交付案例，提升海外客户信任度。',
       factoryPoints: ['来料 QC 实拍', '模组老化测试记录', '箱体组装与包装实拍', '现场安装报告'],
     },
     about: {
       title: '关于 HyperVision',
-      description:
-        'HyperVision 是专注品质、交付与长期技术支持的 B2B LED 显示制造商。',
+      description: 'HyperVision 是专注品质、交付与长期技术支持的 B2B LED 显示制造商。',
       story:
         '自成立以来，我们始终致力于打造世界级 LED 产品。工厂位于深圳宝安，占地 60,000+ 平方米，拥有 8 条自动化 SMT 产线与独立 QC 实验室，服务零售、租赁、体育、交通与智慧城市等多个行业。',
       capabilityTitle: '工厂与产能',

@@ -10,6 +10,7 @@ export type AppEnv = Pick<
   | 'CRM_WEBHOOK_URL'
   | 'CRM_WEBHOOK_TOKEN'
   | 'MAIL_WEBHOOK_URL'
+  | 'TURNSTILE_SITE_KEY'
   | 'TURNSTILE_SECRET_KEY'
 >;
 

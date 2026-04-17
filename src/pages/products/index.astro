@@ -18,7 +18,9 @@ const products = await getProducts(env);
 >
   <section class="container-page py-14">
     <h1 class="text-4xl font-bold">Products</h1>
-    <p class="mt-3 text-[var(--text-subtle)]">Professional LED display systems for multiple industries.</p>
+    <p class="mt-3 text-[var(--text-subtle)]">
+      Professional LED display systems for multiple industries.
+    </p>
     <div class="image-card mt-6 h-64">
       <img src={visualAssets.project} alt="LED project deployment preview" loading="lazy" />
     </div>
@@ -37,7 +39,10 @@ const products = await getProducts(env);
             <p class="mt-2 line-clamp-3 text-sm text-[var(--text-subtle)]">
               {pickLocalized(item, 'excerpt', language)}
             </p>
-            <a href={`/products/${item.slug}`} class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]">
+            <a
+              href={`/products/${item.slug}`}
+              class="mt-4 inline-block text-sm font-semibold text-[var(--brand)]"
+            >
               View details →
             </a>
           </article>

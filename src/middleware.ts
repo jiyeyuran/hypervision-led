@@ -8,7 +8,15 @@ export const onRequest = defineMiddleware(async (_context, next) => {
   response.headers.set('permissions-policy', 'camera=(), microphone=(), geolocation=()');
   response.headers.set(
     'content-security-policy',
-    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:;",
+    [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data: https:",
+      "connect-src 'self' https:",
+      'frame-src https://challenges.cloudflare.com',
+    ].join('; '),
   );
   return response;
 });

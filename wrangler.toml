@@ -7,6 +7,9 @@ compatibility_flags = ["nodejs_compat"]
 directory = "./dist"
 binding = "ASSETS"
 
+[vars]
+TURNSTILE_SITE_KEY = "0x4AAAAAACwvC__dg1iUW3GN"
+
 [observability]
 enabled = true
 
@@ -30,11 +33,3 @@ bucket_name = "hypervision-led-assets"
 [[queues.producers]]
 binding = "INQUIRY_QUEUE"
 queue = "inquiry-events"
-
-[vars]
-CF_ACCESS_AUD = "0c360366b96da051d5feddd5aaabd0d29c41b5fdda14444bb13606682507139b"
-ADMIN_ALLOWLIST = "carmen@hypervision-led.com,info@hypervision-led.com,jiyeyuran@gmail.com"
-CRM_WEBHOOK_URL = ""
-CRM_WEBHOOK_TOKEN = ""
-MAIL_WEBHOOK_URL = ""
-TURNSTILE_SECRET_KEY = ""
