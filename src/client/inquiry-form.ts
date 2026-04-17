@@ -81,6 +81,15 @@ export interface InquiryFormOptions {
   successMessage: string;
   failFallback: string;
   captchaMessage?: string;
+  webviewHintId?: string;
+}
+
+const IN_APP_BROWSER_RE =
+  /MicroMessenger|WeChat|QQ\/|Weibo|DingTalk|Feishu|Lark|Alipay|Instagram|FBAN|FBAV|Line\//i;
+
+function isInAppBrowser(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  return IN_APP_BROWSER_RE.test(navigator.userAgent);
 }
 
 export function initInquiryForm(options: InquiryFormOptions) {
@@ -89,6 +98,21 @@ export function initInquiryForm(options: InquiryFormOptions) {
     options.captchaMessage ?? 'Please complete the verification challenge before submitting.';
   const form = document.getElementById(formId) as HTMLFormElement | null;
   const result = document.getElementById(resultId);
+  const webviewHint = options.webviewHintId ? document.getElementById(options.webviewHintId) : null;
+
+  if (webviewHint && isInAppBrowser()) {
+    webviewHint.classList.remove('hidden');
+  }
+
+  if (form) {
+    const widget = form.querySelector<HTMLElement>('.cf-turnstile');
+    if (widget && webviewHint) {
+      window.setTimeout(() => {
+        const token = window.turnstile?.getResponse(widget) ?? '';
+        if (!token) webviewHint.classList.remove('hidden');
+      }, 12000);
+    }
+  }
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const target = event.currentTarget;

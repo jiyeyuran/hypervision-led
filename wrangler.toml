@@ -8,6 +8,7 @@ directory = "./dist"
 binding = "ASSETS"
 
 [vars]
+ADMIN_ALLOWLIST = "carmen@hypervision-led.com,info@hypervision-led.com,jiyeyuran@gmail.com"
 TURNSTILE_SITE_KEY = "0x4AAAAAACwvC__dg1iUW3GN"
 
 [observability]

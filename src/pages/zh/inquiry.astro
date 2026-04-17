@@ -66,9 +66,16 @@ const turnstileSiteKey = getTurnstileSiteKey();
             data-theme="auto"
             data-action="inquiry"
             data-language="zh-cn"
+            data-appearance="always"
+            data-retry="auto"
+            data-retry-interval="8000"
+            data-refresh-expired="auto"
           />
         )
       }
+      <p id="inquiry-webview-hint-zh" class="hidden text-sm text-amber-600">
+        检测到微信浏览器或其他 App 内置浏览器。若人机验证一直加载不出来，请点击右上角"…"菜单，选择"在浏览器打开"后再提交。
+      </p>
       <button class="btn-primary w-fit" type="submit">提交询盘</button>
       <p id="inquiry-result-zh" class="text-sm text-[var(--text-subtle)]"></p>
     </form>
@@ -89,5 +96,6 @@ const turnstileSiteKey = getTurnstileSiteKey();
     successMessage: '询盘已提交成功，我们将尽快联系您。',
     failFallback: '提交失败',
     captchaMessage: '请先完成人机验证再提交。',
+    webviewHintId: 'inquiry-webview-hint-zh',
   });
 </script>

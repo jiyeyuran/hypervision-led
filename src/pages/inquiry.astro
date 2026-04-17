@@ -70,9 +70,17 @@ const turnstileSiteKey = getTurnstileSiteKey();
             data-sitekey={turnstileSiteKey}
             data-theme="auto"
             data-action="inquiry"
+            data-appearance="always"
+            data-retry="auto"
+            data-retry-interval="8000"
+            data-refresh-expired="auto"
           />
         )
       }
+      <p id="inquiry-webview-hint" class="hidden text-sm text-amber-600">
+        Detected WeChat / in-app browser. If the verification keeps spinning, please tap the top-right
+        menu and choose "Open in Browser" to complete the inquiry.
+      </p>
       <button class="btn-primary w-fit" type="submit">Submit Inquiry</button>
       <p id="inquiry-result" class="text-sm text-[var(--text-subtle)]"></p>
     </form>
@@ -93,5 +101,6 @@ const turnstileSiteKey = getTurnstileSiteKey();
     successMessage: 'Inquiry submitted successfully. Our team will contact you soon.',
     failFallback: 'Submit failed.',
     captchaMessage: 'Please complete the verification challenge before submitting.',
+    webviewHintId: 'inquiry-webview-hint',
   });
 </script>
